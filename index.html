@@ -5,6 +5,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#ffffff">
 <title>Jenn's Command Center — CINC Marketing</title>
+<script>
+  (function() {
+    var saved = null;
+    try { saved = localStorage.getItem("jcc-theme"); } catch (e) {}
+    var theme = saved || (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+    document.documentElement.setAttribute("data-theme", theme);
+  })();
+</script>
 <link rel="icon" type="image/svg+xml" href="Images/Logo/CINC%20Logo%20For%20Light%20Backgrounds.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -33,6 +41,39 @@
     --shadow-lift: 0 2px 4px rgba(11,31,51,.06), 0 12px 28px rgba(11,31,51,.08);
     --radius: 16px;
     --ease: cubic-bezier(.25,.7,.3,1);
+    --topbar-bg: rgba(255,255,255,.82);
+    --control-bg: rgba(11,31,51,.05);
+    --seg-active-bg: #ffffff;
+    --seg-active-shadow: 0 1px 3px rgba(11,31,51,.10);
+    --chip-bg: #ffffff;
+    --row-hover: rgba(11,31,51,.015);
+    --tick-bg: rgba(11,31,51,.08);
+    --selection: rgba(34,166,242,.18);
+  }
+  [data-theme="dark"] {
+    --ink: #F2F6FA;
+    --text-1: #E4EBF2;
+    --text-2: #94A6B8;
+    --text-3: #5E7286;
+    --accent-text: #4FB8F5;
+    --teal-text: #33DCAE;
+    --amber-text: #E3AA4A;
+    --violet-text: #ABA1F7;
+    --red-text: #EE7A7A;
+    --bg: #0C141E;
+    --card: #121D2A;
+    --line: rgba(255,255,255,.07);
+    --line-strong: rgba(255,255,255,.14);
+    --shadow-card: 0 1px 2px rgba(0,0,0,.35), 0 4px 16px rgba(0,0,0,.25);
+    --shadow-lift: 0 2px 4px rgba(0,0,0,.45), 0 14px 32px rgba(0,0,0,.4);
+    --topbar-bg: rgba(12,20,30,.78);
+    --control-bg: rgba(255,255,255,.06);
+    --seg-active-bg: #1D2B3B;
+    --seg-active-shadow: 0 1px 3px rgba(0,0,0,.5);
+    --chip-bg: #182534;
+    --row-hover: rgba(255,255,255,.02);
+    --tick-bg: rgba(255,255,255,.09);
+    --selection: rgba(34,166,242,.3);
   }
   * { box-sizing: border-box; }
   html { scroll-behavior: smooth; }
@@ -48,12 +89,14 @@
   }
   a { color: var(--accent-text); text-decoration: none; }
   a:hover { text-decoration: underline; }
-  ::selection { background: rgba(34,166,242,.18); }
+  ::selection { background: var(--selection); }
+  body, .topbar, .group, .gtm-card, .metrics, .empty, .datechip, #search,
+  details.archive > summary, .filters select, .info-pop .pop { transition: background-color .25s var(--ease), border-color .25s var(--ease), color .25s var(--ease); }
 
   /* ---------- Header ---------- */
   .topbar {
     position: sticky; top: 0; z-index: 50;
-    background: rgba(255,255,255,.82);
+    background: var(--topbar-bg);
     -webkit-backdrop-filter: blur(16px) saturate(1.6);
     backdrop-filter: blur(16px) saturate(1.6);
     border-bottom: 1px solid var(--line);
@@ -72,7 +115,7 @@
   }
 
   .seg {
-    display: flex; gap: 2px; background: rgba(11,31,51,.05);
+    display: flex; gap: 2px; background: var(--control-bg);
     padding: 3px; border-radius: 99px; margin-left: auto;
     overflow-x: auto; scrollbar-width: none;
   }
@@ -84,14 +127,31 @@
   }
   .seg a:hover { color: var(--text-1); text-decoration: none; }
   .seg a.active {
-    background: #fff; color: var(--ink);
-    box-shadow: 0 1px 3px rgba(11,31,51,.10);
+    background: var(--seg-active-bg); color: var(--ink);
+    box-shadow: var(--seg-active-shadow);
   }
   .seg a .n {
     font-size: 11px; color: var(--text-3); margin-left: 5px;
     font-variant-numeric: tabular-nums;
   }
   .seg a.active .n { color: var(--accent-text); }
+
+  .logo-dark { display: none; }
+  [data-theme="dark"] .logo-light { display: none; }
+  [data-theme="dark"] .logo-dark { display: block; }
+
+  #theme-toggle {
+    flex-shrink: 0; width: 32px; height: 32px; padding: 0;
+    display: flex; align-items: center; justify-content: center;
+    background: var(--control-bg); color: var(--text-2);
+    border: none; border-radius: 50%; cursor: pointer;
+    transition: background .2s var(--ease), color .2s var(--ease);
+  }
+  #theme-toggle:hover { color: var(--ink); }
+  #theme-toggle svg { width: 16px; height: 16px; }
+  #theme-toggle .ic-moon { display: none; }
+  [data-theme="dark"] #theme-toggle .ic-sun { display: none; }
+  [data-theme="dark"] #theme-toggle .ic-moon { display: block; }
 
   .search-wrap { position: relative; flex-shrink: 0; }
   .search-wrap svg {
@@ -100,13 +160,13 @@
   }
   #search {
     font: inherit; font-size: 13px; color: var(--text-1);
-    background: rgba(11,31,51,.05); border: 1px solid transparent;
+    background: var(--control-bg); border: 1px solid transparent;
     border-radius: 99px; padding: 7px 14px 7px 32px; width: 170px;
     outline: none; transition: all .2s var(--ease);
   }
   #search::placeholder { color: var(--text-3); }
   #search:focus {
-    background: #fff; border-color: rgba(34,166,242,.5); width: 220px;
+    background: var(--card); border-color: rgba(34,166,242,.5); width: 220px;
     box-shadow: 0 0 0 3px rgba(34,166,242,.12);
   }
 
@@ -160,12 +220,12 @@
     transition: background .15s var(--ease);
   }
   .row:first-child { border-top: none; }
-  .row:hover { background: rgba(11,31,51,.015); }
+  .row:hover { background: var(--row-hover); }
 
   .datechip {
     flex-shrink: 0; width: 46px; text-align: center;
     border: 1px solid var(--line); border-radius: 10px;
-    padding: 5px 0 6px; background: #fff;
+    padding: 5px 0 6px; background: var(--chip-bg);
   }
   .datechip .m { font-size: 10px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--accent-text); line-height: 1.2; }
   .datechip .d { font-size: 17px; font-weight: 600; color: var(--ink); line-height: 1.2; font-variant-numeric: tabular-nums; }
@@ -187,9 +247,9 @@
   .row-links a {
     font-size: 12px; font-weight: 500; color: var(--accent-text);
     border: 1px solid var(--line); border-radius: 99px; padding: 3px 11px;
-    transition: all .15s var(--ease); background: #fff;
+    transition: all .15s var(--ease); background: var(--chip-bg);
   }
-  .row-links a:hover { border-color: rgba(34,166,242,.45); text-decoration: none; background: rgba(34,166,242,.05); }
+  .row-links a:hover { border-color: rgba(34,166,242,.45); text-decoration: none; background: rgba(34,166,242,.08); }
 
   .row-side { flex-shrink: 0; text-align: right; padding-top: 2px; }
 
@@ -232,7 +292,7 @@
   .gtm-card.open .chev { transform: rotate(180deg); }
   .gtm-meta { font-size: 12.5px; color: var(--text-2); margin-top: 3px; }
   .ticks { display: flex; gap: 4px; margin-top: 12px; align-items: center; }
-  .ticks .t { height: 4px; flex: 1; border-radius: 2px; background: rgba(11,31,51,.08); transition: background .2s; }
+  .ticks .t { height: 4px; flex: 1; border-radius: 2px; background: var(--tick-bg); transition: background .2s; }
   .ticks .t.done { background: var(--teal); }
   .ticks .pct { font-size: 11px; font-weight: 600; color: var(--text-3); margin-left: 6px; font-variant-numeric: tabular-nums; }
   .gtm-detail {
@@ -293,7 +353,7 @@
   .filters select {
     font: inherit; font-size: 13px; font-weight: 500; color: var(--text-1);
     padding: 7px 30px 7px 14px; border: 1px solid var(--line); border-radius: 99px;
-    background: #fff url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="10" height="6" viewBox="0 0 10 6"><path d="M1 1l4 4 4-4" stroke="%2397a5b3" stroke-width="1.6" fill="none" stroke-linecap="round"/></svg>') no-repeat right 12px center;
+    background: var(--chip-bg) url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="10" height="6" viewBox="0 0 10 6"><path d="M1 1l4 4 4-4" stroke="%2397a5b3" stroke-width="1.6" fill="none" stroke-linecap="round"/></svg>') no-repeat right 12px center;
     appearance: none; -webkit-appearance: none; cursor: pointer;
     transition: border-color .15s var(--ease);
   }
@@ -326,11 +386,11 @@
   .info-pop > summary:hover { color: var(--text-1); border-color: var(--text-3); }
   .info-pop .pop {
     position: absolute; bottom: 32px; right: 0; width: 300px;
-    background: #fff; border: 1px solid var(--line); border-radius: 14px;
+    background: var(--card); border: 1px solid var(--line); border-radius: 14px;
     box-shadow: var(--shadow-lift); padding: 14px 16px;
     font-size: 12.5px; color: var(--text-2); line-height: 1.6;
   }
-  .info-pop .pop code { background: rgba(11,31,51,.06); border-radius: 4px; padding: 1px 5px; font-size: 11.5px; }
+  .info-pop .pop code { background: var(--control-bg); border-radius: 4px; padding: 1px 5px; font-size: 11.5px; }
 
   /* ---------- Mobile header ---------- */
   @media (max-width: 720px) {
@@ -354,7 +414,8 @@
 <div class="topbar">
   <div class="topbar-inner">
     <div class="logo">
-      <img src="Images/Logo/CINC%20Logo%20For%20Light%20Backgrounds.svg" alt="CINC">
+      <img class="logo-light" src="Images/Logo/CINC%20Logo%20For%20Light%20Backgrounds.svg" alt="CINC">
+      <img class="logo-dark" src="Images/Logo/CINC%20Logo%20For%20Dark%20Backgrounds.svg" alt="CINC">
       <span class="divider"></span>
       <span class="site-name">Jenn's Command Center</span>
     </div>
@@ -368,6 +429,10 @@
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
       <input id="search" type="text" placeholder="Search" autocomplete="off" spellcheck="false">
     </div>
+    <button id="theme-toggle" aria-label="Switch between light and dark mode">
+      <svg class="ic-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.4M12 19.1v2.4M2.5 12h2.4M19.1 12h2.4M5 5l1.7 1.7M17.3 17.3L19 19M19 5l-1.7 1.7M6.7 17.3L5 19"/></svg>
+      <svg class="ic-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.5 14.5A8.5 8.5 0 0 1 9.5 3.5a8.5 8.5 0 1 0 11 11z"/></svg>
+    </button>
   </div>
 </div>
 
@@ -380,7 +445,8 @@
 </main>
 
 <footer>
-  <img src="Images/Logo/CINC%20Logo%20For%20Light%20Backgrounds.svg" alt="">
+  <img class="logo-light" src="Images/Logo/CINC%20Logo%20For%20Light%20Backgrounds.svg" alt="">
+  <img class="logo-dark" src="Images/Logo/CINC%20Logo%20For%20Dark%20Backgrounds.svg" alt="">
   <span id="footer-updated"></span>
   <details class="info-pop">
     <summary>i</summary>
@@ -824,6 +890,29 @@ document.getElementById("footer-updated").textContent = "Updated " + fmtDate(DAT
 
 initCounts();
 route();
+
+/* ---------- Theme ---------- */
+const themeToggle = document.getElementById("theme-toggle");
+const themeColorMeta = document.querySelector('meta[name="theme-color"]');
+function syncThemeColor() {
+  const dark = document.documentElement.getAttribute("data-theme") === "dark";
+  themeColorMeta.setAttribute("content", dark ? "#0C141E" : "#ffffff");
+}
+themeToggle.addEventListener("click", () => {
+  const next = document.documentElement.getAttribute("data-theme") === "dark" ? "light" : "dark";
+  document.documentElement.setAttribute("data-theme", next);
+  try { localStorage.setItem("jcc-theme", next); } catch (e) {}
+  syncThemeColor();
+});
+window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", e => {
+  let saved = null;
+  try { saved = localStorage.getItem("jcc-theme"); } catch (err) {}
+  if (!saved) {
+    document.documentElement.setAttribute("data-theme", e.matches ? "dark" : "light");
+    syncThemeColor();
+  }
+});
+syncThemeColor();
 </script>
 </body>
 </html>
