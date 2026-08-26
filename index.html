@@ -1,0 +1,829 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#ffffff">
+<title>Jenn's Command Center — CINC Marketing</title>
+<link rel="icon" type="image/svg+xml" href="Images/Logo/CINC%20Logo%20For%20Light%20Backgrounds.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #0B1F33;
+    --text-1: #14293e;
+    --text-2: #5c6e80;
+    --text-3: #97a5b3;
+    --accent: #22A6F2;
+    --accent-text: #0d7ac2;
+    --teal: #1FD6A1;
+    --teal-text: #0d8a67;
+    --amber: #e8a13d;
+    --amber-text: #92600e;
+    --violet: #8b7ff0;
+    --violet-text: #5a4dcf;
+    --red: #e05252;
+    --red-text: #b03030;
+    --bg: #f7f9fb;
+    --card: #ffffff;
+    --line: rgba(11, 31, 51, 0.08);
+    --line-strong: rgba(11, 31, 51, 0.14);
+    --shadow-card: 0 1px 2px rgba(11,31,51,.04), 0 4px 16px rgba(11,31,51,.03);
+    --shadow-lift: 0 2px 4px rgba(11,31,51,.06), 0 12px 28px rgba(11,31,51,.08);
+    --radius: 16px;
+    --ease: cubic-bezier(.25,.7,.3,1);
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    font-family: "Inter", -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", sans-serif;
+    background: var(--bg);
+    color: var(--text-1);
+    font-size: 15px;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  a { color: var(--accent-text); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  ::selection { background: rgba(34,166,242,.18); }
+
+  /* ---------- Header ---------- */
+  .topbar {
+    position: sticky; top: 0; z-index: 50;
+    background: rgba(255,255,255,.82);
+    -webkit-backdrop-filter: blur(16px) saturate(1.6);
+    backdrop-filter: blur(16px) saturate(1.6);
+    border-bottom: 1px solid var(--line);
+  }
+  .topbar-inner {
+    max-width: 1120px; margin: 0 auto; padding: 0 28px;
+    display: flex; align-items: center; gap: 20px;
+    height: 64px;
+  }
+  .logo { display: flex; align-items: center; gap: 12px; flex-shrink: 0; }
+  .logo img { height: 26px; display: block; }
+  .logo .divider { width: 1px; height: 22px; background: var(--line-strong); }
+  .logo .site-name {
+    font-size: 13.5px; font-weight: 500; color: var(--text-2);
+    letter-spacing: -0.01em; white-space: nowrap;
+  }
+
+  .seg {
+    display: flex; gap: 2px; background: rgba(11,31,51,.05);
+    padding: 3px; border-radius: 99px; margin-left: auto;
+    overflow-x: auto; scrollbar-width: none;
+  }
+  .seg::-webkit-scrollbar { display: none; }
+  .seg a {
+    font-size: 13px; font-weight: 500; color: var(--text-2);
+    padding: 6px 14px; border-radius: 99px; white-space: nowrap;
+    transition: color .18s var(--ease), background .18s var(--ease), box-shadow .18s var(--ease);
+  }
+  .seg a:hover { color: var(--text-1); text-decoration: none; }
+  .seg a.active {
+    background: #fff; color: var(--ink);
+    box-shadow: 0 1px 3px rgba(11,31,51,.10);
+  }
+  .seg a .n {
+    font-size: 11px; color: var(--text-3); margin-left: 5px;
+    font-variant-numeric: tabular-nums;
+  }
+  .seg a.active .n { color: var(--accent-text); }
+
+  .search-wrap { position: relative; flex-shrink: 0; }
+  .search-wrap svg {
+    position: absolute; left: 11px; top: 50%; transform: translateY(-50%);
+    width: 14px; height: 14px; color: var(--text-3); pointer-events: none;
+  }
+  #search {
+    font: inherit; font-size: 13px; color: var(--text-1);
+    background: rgba(11,31,51,.05); border: 1px solid transparent;
+    border-radius: 99px; padding: 7px 14px 7px 32px; width: 170px;
+    outline: none; transition: all .2s var(--ease);
+  }
+  #search::placeholder { color: var(--text-3); }
+  #search:focus {
+    background: #fff; border-color: rgba(34,166,242,.5); width: 220px;
+    box-shadow: 0 0 0 3px rgba(34,166,242,.12);
+  }
+
+  /* ---------- Layout ---------- */
+  main { max-width: 1120px; margin: 0 auto; padding: 36px 28px 80px; }
+  .view { display: none; }
+  .view.active { display: block; animation: rise .28s var(--ease); }
+  @keyframes rise { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+
+  .eyebrow {
+    font-size: 11px; font-weight: 600; letter-spacing: .09em; text-transform: uppercase;
+    color: var(--text-3); margin: 40px 0 14px;
+    display: flex; align-items: baseline; gap: 10px;
+  }
+  .eyebrow:first-child { margin-top: 0; }
+  .eyebrow .link {
+    font-size: 12px; font-weight: 500; letter-spacing: 0; text-transform: none;
+    margin-left: auto;
+  }
+
+  /* ---------- Metrics ---------- */
+  .metrics {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    background: var(--card); border: 1px solid var(--line); border-radius: var(--radius);
+    box-shadow: var(--shadow-card); overflow: hidden;
+  }
+  .metric { padding: 22px 26px; border-left: 1px solid var(--line); }
+  .metric:first-child { border-left: none; }
+  .metric .label { font-size: 11px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--text-3); }
+  .metric .value {
+    font-size: 38px; font-weight: 600; letter-spacing: -0.03em; color: var(--ink);
+    font-variant-numeric: tabular-nums; line-height: 1.15; margin-top: 6px;
+  }
+  @media (max-width: 800px) {
+    .metrics { grid-template-columns: 1fr 1fr; }
+    .metric { border-top: 1px solid var(--line); }
+    .metric:nth-child(-n+2) { border-top: none; }
+    .metric:nth-child(odd) { border-left: none; }
+    .metric:nth-child(even) { border-left: 1px solid var(--line); }
+    .metric .value { font-size: 30px; }
+  }
+
+  /* ---------- Row groups (lists) ---------- */
+  .group {
+    background: var(--card); border: 1px solid var(--line); border-radius: var(--radius);
+    box-shadow: var(--shadow-card); overflow: hidden;
+  }
+  .row {
+    display: flex; align-items: flex-start; gap: 16px;
+    padding: 15px 20px; border-top: 1px solid var(--line);
+    transition: background .15s var(--ease);
+  }
+  .row:first-child { border-top: none; }
+  .row:hover { background: rgba(11,31,51,.015); }
+
+  .datechip {
+    flex-shrink: 0; width: 46px; text-align: center;
+    border: 1px solid var(--line); border-radius: 10px;
+    padding: 5px 0 6px; background: #fff;
+  }
+  .datechip .m { font-size: 10px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--accent-text); line-height: 1.2; }
+  .datechip .d { font-size: 17px; font-weight: 600; color: var(--ink); line-height: 1.2; font-variant-numeric: tabular-nums; }
+  .datechip.tbd .m { color: var(--text-3); }
+  .datechip.tbd .d { color: var(--text-3); font-size: 13px; padding: 2px 0; }
+
+  .row-main { min-width: 0; flex: 1; }
+  .row-title { font-size: 14.5px; font-weight: 500; color: var(--ink); letter-spacing: -0.005em; }
+  .row-title .flag {
+    font-size: 11px; font-weight: 500; color: var(--text-3);
+    border: 1px dashed var(--line-strong); border-radius: 6px;
+    padding: 1px 6px; margin-left: 8px; vertical-align: 1px;
+  }
+  .row-meta { font-size: 12.5px; color: var(--text-2); margin-top: 2px; }
+  .row-meta .kind { text-transform: uppercase; letter-spacing: .06em; font-size: 10.5px; font-weight: 600; color: var(--text-3); }
+  .row-meta .soon { color: var(--amber-text); font-weight: 500; }
+  .row-notes { font-size: 13px; color: var(--text-2); margin-top: 6px; max-width: 62ch; }
+  .row-links { margin-top: 7px; display: flex; gap: 6px; flex-wrap: wrap; }
+  .row-links a {
+    font-size: 12px; font-weight: 500; color: var(--accent-text);
+    border: 1px solid var(--line); border-radius: 99px; padding: 3px 11px;
+    transition: all .15s var(--ease); background: #fff;
+  }
+  .row-links a:hover { border-color: rgba(34,166,242,.45); text-decoration: none; background: rgba(34,166,242,.05); }
+
+  .row-side { flex-shrink: 0; text-align: right; padding-top: 2px; }
+
+  .status { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 500; color: var(--text-2); white-space: nowrap; }
+  .status .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--text-3); flex-shrink: 0; }
+  .status.s-idea .dot { background: #b8c2cc; }
+  .status.s-planning .dot, .status.s-drafting .dot { background: var(--amber); }
+  .status.s-planning, .status.s-drafting { color: var(--amber-text); }
+  .status.s-in-review .dot { background: var(--violet); }
+  .status.s-in-review { color: var(--violet-text); }
+  .status.s-confirmed .dot, .status.s-scheduled .dot { background: var(--accent); }
+  .status.s-confirmed, .status.s-scheduled { color: var(--accent-text); }
+  .status.s-complete .dot, .status.s-published .dot { background: var(--teal); }
+  .status.s-complete, .status.s-published { color: var(--teal-text); }
+  .status.s-cancelled .dot { background: var(--red); }
+  .status.s-cancelled { color: var(--red-text); }
+
+  /* ---------- GTM board ---------- */
+  .board { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 18px; }
+  @media (max-width: 880px) { .board { grid-template-columns: 1fr; } }
+  .col-head {
+    font-size: 11px; font-weight: 600; letter-spacing: .09em; text-transform: uppercase;
+    color: var(--text-3); margin-bottom: 12px; display: flex; align-items: center; gap: 8px;
+  }
+  .col-head .count { color: var(--text-3); font-weight: 500; font-variant-numeric: tabular-nums; }
+
+  .gtm-card {
+    background: var(--card); border: 1px solid var(--line); border-radius: var(--radius);
+    box-shadow: var(--shadow-card); padding: 16px 18px; margin-bottom: 12px;
+    transition: box-shadow .2s var(--ease), transform .2s var(--ease), border-color .2s var(--ease);
+  }
+  .gtm-card.expandable { cursor: pointer; }
+  .gtm-card.expandable:hover { box-shadow: var(--shadow-lift); transform: translateY(-1px); border-color: var(--line-strong); }
+  .gtm-head { display: flex; align-items: center; gap: 10px; }
+  .gtm-title { font-size: 14.5px; font-weight: 600; color: var(--ink); letter-spacing: -0.005em; flex: 1; min-width: 0; }
+  .gtm-card .chev {
+    flex-shrink: 0; width: 16px; height: 16px; color: var(--text-3);
+    transition: transform .25s var(--ease);
+  }
+  .gtm-card.open .chev { transform: rotate(180deg); }
+  .gtm-meta { font-size: 12.5px; color: var(--text-2); margin-top: 3px; }
+  .ticks { display: flex; gap: 4px; margin-top: 12px; align-items: center; }
+  .ticks .t { height: 4px; flex: 1; border-radius: 2px; background: rgba(11,31,51,.08); transition: background .2s; }
+  .ticks .t.done { background: var(--teal); }
+  .ticks .pct { font-size: 11px; font-weight: 600; color: var(--text-3); margin-left: 6px; font-variant-numeric: tabular-nums; }
+  .gtm-detail {
+    max-height: 0; overflow: hidden; opacity: 0;
+    transition: max-height .3s var(--ease), opacity .25s var(--ease), margin .3s var(--ease);
+  }
+  .gtm-card.open .gtm-detail { max-height: 600px; opacity: 1; margin-top: 14px; }
+  .gtm-detail-inner { border-top: 1px solid var(--line); padding-top: 12px; }
+  .checklist { list-style: none; margin: 0; padding: 0; }
+  .checklist li {
+    display: flex; align-items: center; gap: 9px;
+    font-size: 13px; color: var(--text-2); padding: 4px 0;
+  }
+  .checklist .ck {
+    width: 15px; height: 15px; border-radius: 50%; flex-shrink: 0;
+    border: 1.5px solid var(--line-strong); display: inline-flex;
+    align-items: center; justify-content: center;
+  }
+  .checklist li.done { color: var(--text-1); }
+  .checklist li.done .ck { background: var(--teal); border-color: var(--teal); }
+  .checklist li.done .ck svg { width: 9px; height: 9px; color: #fff; }
+  .gtm-notes { font-size: 13px; color: var(--text-2); margin: 10px 0 0; }
+
+  .gtm-past-row { padding: 12px 20px; }
+  .gtm-past-row .row-title { font-weight: 500; color: var(--text-1); }
+
+  /* ---------- Archives ---------- */
+  details.archive { margin-bottom: 10px; }
+  details.archive > summary {
+    list-style: none; cursor: pointer; user-select: none;
+    display: flex; align-items: center; gap: 10px;
+    font-size: 13px; font-weight: 500; color: var(--text-2);
+    padding: 12px 20px; background: var(--card);
+    border: 1px solid var(--line); border-radius: var(--radius);
+    box-shadow: var(--shadow-card);
+    transition: border-color .15s var(--ease);
+  }
+  details.archive > summary::-webkit-details-marker { display: none; }
+  details.archive > summary:hover { border-color: var(--line-strong); }
+  details.archive > summary .count { color: var(--text-3); font-weight: 400; }
+  details.archive > summary .chev { margin-left: auto; width: 14px; height: 14px; color: var(--text-3); transition: transform .25s var(--ease); }
+  details.archive[open] > summary { border-bottom-left-radius: 0; border-bottom-right-radius: 0; }
+  details.archive[open] > summary .chev { transform: rotate(180deg); }
+  details.archive .group { border-top: none; border-top-left-radius: 0; border-top-right-radius: 0; box-shadow: none; }
+
+  /* ---------- Empty states ---------- */
+  .empty {
+    text-align: center; padding: 36px 24px; color: var(--text-3);
+    background: var(--card); border: 1px solid var(--line); border-radius: var(--radius);
+    box-shadow: var(--shadow-card);
+  }
+  .empty svg { width: 26px; height: 26px; color: var(--text-3); opacity: .7; margin-bottom: 8px; }
+  .empty p { margin: 0; font-size: 13.5px; }
+  .empty-col { background: transparent; border: 1px dashed var(--line-strong); box-shadow: none; padding: 26px 18px; border-radius: var(--radius); }
+
+  /* ---------- Filters ---------- */
+  .filters { display: flex; gap: 8px; margin-bottom: 22px; flex-wrap: wrap; }
+  .filters select {
+    font: inherit; font-size: 13px; font-weight: 500; color: var(--text-1);
+    padding: 7px 30px 7px 14px; border: 1px solid var(--line); border-radius: 99px;
+    background: #fff url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="10" height="6" viewBox="0 0 10 6"><path d="M1 1l4 4 4-4" stroke="%2397a5b3" stroke-width="1.6" fill="none" stroke-linecap="round"/></svg>') no-repeat right 12px center;
+    appearance: none; -webkit-appearance: none; cursor: pointer;
+    transition: border-color .15s var(--ease);
+  }
+  .filters select:hover { border-color: var(--line-strong); }
+  .filters select:focus { outline: none; border-color: rgba(34,166,242,.5); box-shadow: 0 0 0 3px rgba(34,166,242,.12); }
+
+  /* ---------- Two column ---------- */
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; align-items: start; }
+  @media (max-width: 880px) { .two-col { grid-template-columns: 1fr; } }
+
+  /* ---------- Search results ---------- */
+  .search-note { font-size: 13.5px; color: var(--text-2); margin-bottom: 22px; }
+  .search-note b { color: var(--ink); font-weight: 600; }
+
+  /* ---------- Footer ---------- */
+  footer {
+    max-width: 1120px; margin: 0 auto; padding: 0 28px 48px;
+    display: flex; align-items: center; gap: 14px;
+    font-size: 12px; color: var(--text-3);
+  }
+  footer img { height: 16px; opacity: .55; }
+  .info-pop { position: relative; margin-left: auto; }
+  .info-pop > summary {
+    list-style: none; cursor: pointer; width: 22px; height: 22px;
+    display: flex; align-items: center; justify-content: center;
+    border-radius: 50%; border: 1px solid var(--line-strong); color: var(--text-3);
+    font-size: 12px; font-weight: 600;
+  }
+  .info-pop > summary::-webkit-details-marker { display: none; }
+  .info-pop > summary:hover { color: var(--text-1); border-color: var(--text-3); }
+  .info-pop .pop {
+    position: absolute; bottom: 32px; right: 0; width: 300px;
+    background: #fff; border: 1px solid var(--line); border-radius: 14px;
+    box-shadow: var(--shadow-lift); padding: 14px 16px;
+    font-size: 12.5px; color: var(--text-2); line-height: 1.6;
+  }
+  .info-pop .pop code { background: rgba(11,31,51,.06); border-radius: 4px; padding: 1px 5px; font-size: 11.5px; }
+
+  /* ---------- Mobile header ---------- */
+  @media (max-width: 720px) {
+    .topbar-inner { flex-wrap: wrap; height: auto; padding: 12px 16px; row-gap: 10px; }
+    .logo .site-name { display: none; }
+    .search-wrap { order: 2; margin-left: auto; }
+    #search { width: 130px; }
+    #search:focus { width: 160px; }
+    .seg { order: 3; width: 100%; margin-left: 0; }
+    main { padding: 24px 16px 60px; }
+    footer { padding: 0 16px 40px; }
+    .row { padding: 14px 16px; }
+    .row-side { display: none; }
+    .row-status-inline { display: inline-flex !important; margin-top: 6px; }
+  }
+  .row-status-inline { display: none; }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-inner">
+    <div class="logo">
+      <img src="Images/Logo/CINC%20Logo%20For%20Light%20Backgrounds.svg" alt="CINC">
+      <span class="divider"></span>
+      <span class="site-name">Jenn's Command Center</span>
+    </div>
+    <nav class="seg" id="nav">
+      <a href="#dashboard" data-view="dashboard">Overview</a>
+      <a href="#events" data-view="events">Events<span class="n" id="n-events"></span></a>
+      <a href="#content" data-view="content">Content<span class="n" id="n-content"></span></a>
+      <a href="#gtm" data-view="gtm">GTM<span class="n" id="n-gtm"></span></a>
+    </nav>
+    <div class="search-wrap">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+      <input id="search" type="text" placeholder="Search" autocomplete="off" spellcheck="false">
+    </div>
+  </div>
+</div>
+
+<main>
+  <section id="view-dashboard" class="view"></section>
+  <section id="view-events" class="view"></section>
+  <section id="view-content" class="view"></section>
+  <section id="view-gtm" class="view"></section>
+  <section id="view-search" class="view"></section>
+</main>
+
+<footer>
+  <img src="Images/Logo/CINC%20Logo%20For%20Light%20Backgrounds.svg" alt="">
+  <span id="footer-updated"></span>
+  <details class="info-pop">
+    <summary>i</summary>
+    <div class="pop">
+      This site is maintained through Claude Code. Open this folder in Claude Code
+      and describe any change in plain English — it updates <code>data.js</code>,
+      commits, and pushes so the team sees it.
+    </div>
+  </details>
+</footer>
+
+<script src="data.js"></script>
+<script>
+const DATA = window.COMMAND_CENTER_DATA;
+const TODAY = new Date(); TODAY.setHours(0,0,0,0);
+
+const CONTENT_TYPE_LABELS = {
+  "blog": "Blog post", "white-paper": "White paper", "testimonial": "Testimonial",
+  "buy-side-brief": "Buy-side brief", "press-release": "Press release"
+};
+const EVENT_TYPE_LABELS = { "tradeshow": "Tradeshow", "webinar": "Webinar" };
+const STATUS_LABELS = {
+  "idea": "Idea", "planning": "Planning", "confirmed": "Confirmed",
+  "complete": "Complete", "cancelled": "Cancelled", "drafting": "Drafting",
+  "in-review": "In review", "scheduled": "Scheduled", "published": "Published"
+};
+const MONTHS = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+
+const CHECK_SVG = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4 10-10"/></svg>`;
+const CHEV_SVG = `<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg>`;
+const ICONS = {
+  calendar: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M8 3v4M16 3v4M3 10h18"/></svg>`,
+  doc: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h4"/></svg>`,
+  rocket: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/><path d="M12 15l-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/></svg>`,
+  search: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>`
+};
+
+function esc(s) {
+  return String(s == null ? "" : s).replace(/[&<>"']/g, c =>
+    ({ "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;", "'":"&#39;" }[c]));
+}
+function parseDate(s) {
+  if (!s) return null;
+  const [y,m,d] = s.split("-").map(Number);
+  if (!y || !m || !d) return null;
+  return new Date(y, m-1, d);
+}
+function fmtDate(s) {
+  const d = parseDate(s);
+  if (!d) return "";
+  return `${MONTHS[d.getMonth()]} ${d.getDate()}, ${d.getFullYear()}`;
+}
+function fmtRange(a, b) {
+  const da = parseDate(a), db = parseDate(b);
+  if (!da) return "";
+  if (!db || a === b) return fmtDate(a);
+  if (da.getFullYear() === db.getFullYear()) {
+    if (da.getMonth() === db.getMonth())
+      return `${MONTHS[da.getMonth()]} ${da.getDate()}–${db.getDate()}, ${db.getFullYear()}`;
+    return `${MONTHS[da.getMonth()]} ${da.getDate()} – ${MONTHS[db.getMonth()]} ${db.getDate()}, ${db.getFullYear()}`;
+  }
+  return `${fmtDate(a)} – ${fmtDate(b)}`;
+}
+function daysUntil(s) {
+  const d = parseDate(s);
+  if (!d) return null;
+  return Math.round((d - TODAY) / 86400000);
+}
+function soonText(s) {
+  const n = daysUntil(s);
+  if (n === null || n < 0 || n > 14) return "";
+  const t = n === 0 ? "today" : n === 1 ? "tomorrow" : `in ${n} days`;
+  return ` · <span class="soon">${t}</span>`;
+}
+function statusHtml(status, extraClass) {
+  return `<span class="status s-${esc(status)} ${extraClass||""}"><span class="dot"></span>${esc(STATUS_LABELS[status] || status)}</span>`;
+}
+function dateChip(s) {
+  const d = parseDate(s);
+  if (!d) return `<div class="datechip tbd"><div class="m">Date</div><div class="d">TBD</div></div>`;
+  return `<div class="datechip"><div class="m">${MONTHS[d.getMonth()]}</div><div class="d">${d.getDate()}</div></div>`;
+}
+function linksHtml(links) {
+  if (!links || !links.length) return "";
+  return `<div class="row-links">` + links.map(l =>
+    `<a href="${esc(l.url)}" target="_blank" rel="noopener">${esc(l.label)}</a>`).join("") + `</div>`;
+}
+function flagHtml(item) { return item.sample ? `<span class="flag">Sample</span>` : ""; }
+function emptyHtml(icon, text, colStyle) {
+  return `<div class="empty ${colStyle ? "empty-col" : ""}">${ICONS[icon] || ""}<p>${text}</p></div>`;
+}
+function groupWrap(rows) { return `<div class="group">${rows}</div>`; }
+
+/* ---------- Rows ---------- */
+function eventRow(e, opts) {
+  opts = opts || {};
+  return `<div class="row">
+    ${dateChip(e.startDate)}
+    <div class="row-main">
+      <div class="row-title">${esc(e.title)}${flagHtml(e)}</div>
+      <div class="row-meta">
+        <span class="kind">${esc(EVENT_TYPE_LABELS[e.type] || e.type)}</span>
+        ${e.startDate ? " · " + fmtRange(e.startDate, e.endDate) : ""}${soonText(e.startDate)}
+        ${e.location ? " · " + esc(e.location) : ""}${e.owner ? " · " + esc(e.owner) : ""}
+      </div>
+      ${!opts.compact && e.notes ? `<div class="row-notes">${esc(e.notes)}</div>` : ""}
+      ${!opts.compact ? linksHtml(e.links) : ""}
+      ${statusHtml(e.status, "row-status-inline")}
+    </div>
+    <div class="row-side">${statusHtml(e.status)}</div>
+  </div>`;
+}
+
+function contentRow(c, opts) {
+  opts = opts || {};
+  const dateStr = c.status === "published" ? c.publishDate : c.dueDate;
+  const dateLabel = c.status === "published"
+    ? (c.publishDate ? "Published " + fmtDate(c.publishDate) : "")
+    : (c.dueDate ? "Due " + fmtDate(c.dueDate) + soonText(c.dueDate) : "");
+  return `<div class="row">
+    ${dateChip(dateStr)}
+    <div class="row-main">
+      <div class="row-title">${esc(c.title)}${flagHtml(c)}</div>
+      <div class="row-meta">
+        <span class="kind">${esc(CONTENT_TYPE_LABELS[c.type] || c.type)}</span>
+        ${dateLabel ? " · " + dateLabel : ""}${c.owner ? " · " + esc(c.owner) : ""}
+      </div>
+      ${!opts.compact && c.notes ? `<div class="row-notes">${esc(c.notes)}</div>` : ""}
+      ${!opts.compact ? linksHtml(c.links) : ""}
+      ${statusHtml(c.status, "row-status-inline")}
+    </div>
+    <div class="row-side">${statusHtml(c.status)}</div>
+  </div>`;
+}
+
+/* ---------- GTM cards ---------- */
+function gtmCard(p) {
+  const cl = p.checklist || [];
+  const done = cl.filter(i => i.done).length;
+  const hasDetail = cl.length || p.description || p.notes || (p.links && p.links.length);
+  return `<div class="gtm-card ${hasDetail ? "expandable" : ""}" data-id="${esc(p.id)}">
+    <div class="gtm-head">
+      <div class="gtm-title">${esc(p.title)}</div>
+      ${hasDetail ? CHEV_SVG : ""}
+    </div>
+    ${p.launchDate ? `<div class="gtm-meta">Launch ${fmtDate(p.launchDate)}${soonText(p.launchDate)}</div>` : ""}
+    ${cl.length ? `<div class="ticks">${cl.map(i => `<span class="t ${i.done ? "done" : ""}"></span>`).join("")}<span class="pct">${done}/${cl.length}</span></div>` : ""}
+    ${hasDetail ? `<div class="gtm-detail"><div class="gtm-detail-inner">
+      ${p.description ? `<div class="gtm-notes" style="margin:0 0 10px">${esc(p.description)}</div>` : ""}
+      ${cl.length ? `<ul class="checklist">${cl.map(i =>
+        `<li class="${i.done ? "done" : ""}"><span class="ck">${i.done ? CHECK_SVG : ""}</span>${esc(i.item)}</li>`).join("")}</ul>` : ""}
+      ${p.notes ? `<div class="gtm-notes">${esc(p.notes)}</div>` : ""}
+      ${linksHtml(p.links)}
+    </div></div>` : ""}
+  </div>`;
+}
+function bindGtmCards(scope) {
+  scope.querySelectorAll(".gtm-card.expandable").forEach(card => {
+    card.addEventListener("click", ev => {
+      if (ev.target.closest("a")) return;
+      card.classList.toggle("open");
+    });
+  });
+}
+function gtmPastRow(p) {
+  return `<div class="row gtm-past-row">
+    <div class="row-main">
+      <div class="row-title">${esc(p.title)}</div>
+      ${p.launchDate || p.notes ? `<div class="row-meta">${p.launchDate ? "Launched " + fmtDate(p.launchDate) : ""}${p.launchDate && p.notes ? " · " : ""}${esc(p.notes || "")}</div>` : ""}
+      ${linksHtml(p.links)}
+    </div>
+    <div class="row-side">${statusHtml("complete")}</div>
+  </div>`;
+}
+
+/* ---------- Archive grouping ---------- */
+function archiveSection(label, count, innerRows) {
+  return `<details class="archive">
+    <summary>${esc(label)} <span class="count">· ${count} item${count === 1 ? "" : "s"}</span>${CHEV_SVG}</summary>
+    <div class="group">${innerRows}</div>
+  </details>`;
+}
+function quarterOf(s) {
+  const d = parseDate(s);
+  if (!d) return "Undated";
+  return `Q${Math.floor(d.getMonth() / 3) + 1} ${d.getFullYear()}`;
+}
+function yearOf(s) {
+  const d = parseDate(s);
+  return d ? String(d.getFullYear()) : "Undated";
+}
+function groupBy(items, keyFn) {
+  const map = new Map();
+  items.forEach(it => {
+    const k = keyFn(it);
+    if (!map.has(k)) map.set(k, []);
+    map.get(k).push(it);
+  });
+  return map;
+}
+
+/* ---------- Events view ---------- */
+function renderEvents() {
+  const el = document.getElementById("view-events");
+  const typeF = el.dataset.typeFilter || "all";
+  const statusF = el.dataset.statusFilter || "all";
+  let items = DATA.events.slice().sort((a,b) => (a.startDate||"9999") < (b.startDate||"9999") ? -1 : 1);
+  if (typeF !== "all") items = items.filter(e => e.type === typeF);
+  if (statusF !== "all") items = items.filter(e => e.status === statusF);
+
+  const upcoming = items.filter(e => { const n = daysUntil(e.startDate); return n === null || n >= 0; });
+  const past = items.filter(e => { const n = daysUntil(e.startDate); return n !== null && n < 0; }).reverse();
+  const pastByYear = groupBy(past, e => yearOf(e.startDate));
+
+  el.innerHTML = `
+    <div class="filters">
+      <select id="evt-type">
+        <option value="all">All types</option>
+        <option value="tradeshow">Tradeshows</option>
+        <option value="webinar">Webinars</option>
+      </select>
+      <select id="evt-status">
+        <option value="all">All statuses</option>
+        ${["idea","planning","confirmed","complete","cancelled"].map(s =>
+          `<option value="${s}">${STATUS_LABELS[s]}</option>`).join("")}
+      </select>
+    </div>
+    <div class="eyebrow">Upcoming</div>
+    ${upcoming.length ? groupWrap(upcoming.map(e => eventRow(e)).join(""))
+      : emptyHtml("calendar", "No upcoming events on the calendar.")}
+    <div class="eyebrow">Past</div>
+    ${past.length
+      ? [...pastByYear.entries()].map(([year, evs]) =>
+          archiveSection(year, evs.length, evs.map(e => eventRow(e, {compact:true})).join(""))).join("")
+      : emptyHtml("calendar", "Past events will collect here.")}
+  `;
+  const t = el.querySelector("#evt-type"), s = el.querySelector("#evt-status");
+  t.value = typeF; s.value = statusF;
+  t.onchange = () => { el.dataset.typeFilter = t.value; renderEvents(); };
+  s.onchange = () => { el.dataset.statusFilter = s.value; renderEvents(); };
+}
+
+/* ---------- Content view ---------- */
+function renderContent() {
+  const el = document.getElementById("view-content");
+  const typeF = el.dataset.typeFilter || "all";
+  const statusF = el.dataset.statusFilter || "all";
+  let items = DATA.content.slice().sort((a,b) => (a.dueDate||"9999") < (b.dueDate||"9999") ? -1 : 1);
+  if (typeF !== "all") items = items.filter(c => c.type === typeF);
+  if (statusF !== "all") items = items.filter(c => c.status === statusF);
+
+  const active = items.filter(c => c.status !== "published");
+  const published = items.filter(c => c.status === "published")
+    .sort((a,b) => (b.publishDate||"") < (a.publishDate||"") ? -1 : 1);
+  const pubByQuarter = groupBy(published, c => quarterOf(c.publishDate));
+
+  el.innerHTML = `
+    <div class="filters">
+      <select id="cnt-type">
+        <option value="all">All types</option>
+        ${Object.entries(CONTENT_TYPE_LABELS).map(([k,v]) => `<option value="${k}">${v}s</option>`).join("")}
+      </select>
+      <select id="cnt-status">
+        <option value="all">All statuses</option>
+        ${["idea","drafting","in-review","scheduled","published"].map(s =>
+          `<option value="${s}">${STATUS_LABELS[s]}</option>`).join("")}
+      </select>
+    </div>
+    <div class="eyebrow">In the pipeline</div>
+    ${active.length ? groupWrap(active.map(c => contentRow(c)).join(""))
+      : emptyHtml("doc", "The pipeline is clear.")}
+    <div class="eyebrow">Published</div>
+    ${published.length
+      ? [...pubByQuarter.entries()].map(([q, cs]) =>
+          archiveSection(q, cs.length, cs.map(c => contentRow(c, {compact:true})).join(""))).join("")
+      : emptyHtml("doc", "Published work will archive here by quarter.")}
+  `;
+  const t = el.querySelector("#cnt-type"), s = el.querySelector("#cnt-status");
+  t.value = typeF; s.value = statusF;
+  t.onchange = () => { el.dataset.typeFilter = t.value; renderContent(); };
+  s.onchange = () => { el.dataset.statusFilter = s.value; renderContent(); };
+}
+
+/* ---------- GTM view ---------- */
+function renderGtm() {
+  const el = document.getElementById("view-gtm");
+  const current = DATA.gtm.filter(p => p.stage === "current");
+  const future = DATA.gtm.filter(p => p.stage === "future");
+  const past = DATA.gtm.filter(p => p.stage === "past");
+  el.innerHTML = `
+    <div class="board">
+      <div>
+        <div class="col-head">Current <span class="count">${current.length}</span></div>
+        ${current.length ? current.map(gtmCard).join("") : emptyHtml("rocket", "No launches in flight.", true)}
+      </div>
+      <div>
+        <div class="col-head">Future <span class="count">${future.length}</span></div>
+        ${future.length ? future.map(gtmCard).join("") : emptyHtml("rocket", "Nothing queued yet.", true)}
+      </div>
+      <div>
+        <div class="col-head">Shipped <span class="count">${past.length}</span></div>
+        ${past.length ? groupWrap(past.map(gtmPastRow).join("")) : emptyHtml("rocket", "Launched projects land here.", true)}
+      </div>
+    </div>
+  `;
+  bindGtmCards(el);
+}
+
+/* ---------- Dashboard ---------- */
+function renderDashboard() {
+  const el = document.getElementById("view-dashboard");
+  const upcomingEvents = DATA.events
+    .filter(e => e.status !== "cancelled" && (daysUntil(e.startDate) === null || daysUntil(e.startDate) >= 0))
+    .sort((a,b) => (a.startDate||"9999") < (b.startDate||"9999") ? -1 : 1);
+  const activeContent = DATA.content.filter(c => c.status !== "published")
+    .sort((a,b) => (a.dueDate||"9999") < (b.dueDate||"9999") ? -1 : 1);
+  const currentGtm = DATA.gtm.filter(p => p.stage === "current");
+  const futureGtm = DATA.gtm.filter(p => p.stage === "future");
+
+  const dueSoon = [];
+  DATA.events.forEach(e => {
+    const n = daysUntil(e.startDate);
+    if (n !== null && n >= 0 && n <= 30 && !["cancelled","complete"].includes(e.status))
+      dueSoon.push({ when: e.startDate, title: e.title, kind: EVENT_TYPE_LABELS[e.type], status: e.status });
+  });
+  DATA.content.forEach(c => {
+    const n = daysUntil(c.dueDate);
+    if (n !== null && n >= 0 && n <= 30 && c.status !== "published")
+      dueSoon.push({ when: c.dueDate, title: c.title, kind: CONTENT_TYPE_LABELS[c.type], status: c.status });
+  });
+  DATA.gtm.forEach(p => {
+    const n = daysUntil(p.launchDate);
+    if (n !== null && n >= 0 && n <= 30 && p.stage === "current")
+      dueSoon.push({ when: p.launchDate, title: p.title + " launch", kind: "GTM", status: "confirmed" });
+  });
+  dueSoon.sort((a,b) => a.when < b.when ? -1 : 1);
+
+  const agendaRow = d => `<div class="row">
+    ${dateChip(d.when)}
+    <div class="row-main">
+      <div class="row-title">${esc(d.title)}</div>
+      <div class="row-meta"><span class="kind">${esc(d.kind)}</span> · ${fmtDate(d.when)}${soonText(d.when)}</div>
+    </div>
+    <div class="row-side">${statusHtml(d.status)}</div>
+  </div>`;
+
+  el.innerHTML = `
+    <div class="metrics">
+      <div class="metric"><div class="label">GTM in flight</div><div class="value">${currentGtm.length}</div></div>
+      <div class="metric"><div class="label">Upcoming events</div><div class="value">${upcomingEvents.length}</div></div>
+      <div class="metric"><div class="label">Content pipeline</div><div class="value">${activeContent.length}</div></div>
+      <div class="metric"><div class="label">Next 30 days</div><div class="value">${dueSoon.length}</div></div>
+    </div>
+
+    <div class="eyebrow">Next 30 days</div>
+    ${dueSoon.length ? groupWrap(dueSoon.map(agendaRow).join(""))
+      : emptyHtml("calendar", "Nothing dated in the next 30 days.")}
+
+    <div class="two-col" style="margin-top: 40px;">
+      <div>
+        <div class="eyebrow" style="margin-top:0">Upcoming events <a class="link" href="#events">View all</a></div>
+        ${upcomingEvents.length ? groupWrap(upcomingEvents.slice(0,5).map(e => eventRow(e, {compact:true})).join(""))
+          : emptyHtml("calendar", "No events on the calendar.")}
+      </div>
+      <div>
+        <div class="eyebrow" style="margin-top:0">Content pipeline <a class="link" href="#content">View all</a></div>
+        ${activeContent.length ? groupWrap(activeContent.slice(0,5).map(c => contentRow(c, {compact:true})).join(""))
+          : emptyHtml("doc", "The pipeline is clear.")}
+      </div>
+    </div>
+
+    <div class="eyebrow">GTM in flight <a class="link" href="#gtm">View board</a></div>
+    <div class="board">${currentGtm.map(gtmCard).join("")}</div>
+
+    ${futureGtm.length ? `<div class="eyebrow">On the horizon</div><div class="board">${futureGtm.map(gtmCard).join("")}</div>` : ""}
+  `;
+  bindGtmCards(el);
+}
+
+/* ---------- Search ---------- */
+function renderSearch(q) {
+  const el = document.getElementById("view-search");
+  const needle = q.trim().toLowerCase();
+  const match = (it, fields) => fields.some(f => (it[f] || "").toLowerCase().includes(needle));
+
+  const evs = DATA.events.filter(e => match(e, ["title","location","notes","type","status"]));
+  const cnt = DATA.content.filter(c => match(c, ["title","notes","type","status"]));
+  const gtm = DATA.gtm.filter(p => match(p, ["title","description","notes","stage"]));
+  const total = evs.length + cnt.length + gtm.length;
+
+  el.innerHTML = `
+    <div class="search-note">${total ? `<b>${total}</b> result${total === 1 ? "" : "s"} for “${esc(q)}”` : `No results for “${esc(q)}”`}</div>
+    ${evs.length ? `<div class="eyebrow">Events</div>` + groupWrap(evs.map(e => eventRow(e, {compact:true})).join("")) : ""}
+    ${cnt.length ? `<div class="eyebrow">Content</div>` + groupWrap(cnt.map(c => contentRow(c, {compact:true})).join("")) : ""}
+    ${gtm.length ? `<div class="eyebrow">GTM projects</div><div class="board">` + gtm.map(gtmCard).join("") + `</div>` : ""}
+    ${!total ? emptyHtml("search", "Try a project name, event, city, or status.") : ""}
+  `;
+  bindGtmCards(el);
+}
+
+/* ---------- Routing ---------- */
+const VIEWS = { dashboard: renderDashboard, events: renderEvents, content: renderContent, gtm: renderGtm };
+const searchInput = document.getElementById("search");
+
+function show(viewId) {
+  document.querySelectorAll("nav a").forEach(a =>
+    a.classList.toggle("active", a.dataset.view === viewId));
+  document.querySelectorAll(".view").forEach(v => {
+    const on = v.id === "view-" + viewId;
+    if (on && !v.classList.contains("active")) { v.classList.remove("active"); void v.offsetWidth; }
+    v.classList.toggle("active", on);
+  });
+}
+
+function route() {
+  const hash = (location.hash || "#dashboard").slice(1);
+  const view = VIEWS[hash] ? hash : "dashboard";
+  if (searchInput.value.trim()) { searchInput.value = ""; }
+  VIEWS[view]();
+  show(view);
+  window.scrollTo({ top: 0 });
+}
+
+searchInput.addEventListener("input", () => {
+  const q = searchInput.value;
+  if (q.trim()) { renderSearch(q); show("search"); }
+  else route();
+});
+searchInput.addEventListener("keydown", e => {
+  if (e.key === "Escape") { searchInput.value = ""; searchInput.blur(); route(); }
+});
+
+window.addEventListener("hashchange", route);
+
+function initCounts() {
+  document.getElementById("n-events").textContent = DATA.events.length || "";
+  document.getElementById("n-content").textContent = DATA.content.length || "";
+  document.getElementById("n-gtm").textContent = DATA.gtm.length || "";
+}
+document.getElementById("footer-updated").textContent = "Updated " + fmtDate(DATA.meta.updated);
+
+initCounts();
+route();
+</script>
+</body>
+</html>
