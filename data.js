@@ -216,10 +216,35 @@ window.COMMAND_CENTER_DATA = {
       id: "gtm-google-lsa",
       title: "Google Local Service Ads",
       stage: "past",
-      description: "",
+      description: "Managed Google Local Services Ads offering for CINC clients, with a dedicated landing page at cinclsa.com.",
       launchDate: "",
-      links: [],
-      notes: ""
+      links: [
+        { label: "Landing page (cinclsa.com)", url: "https://cinclsa.com" },
+        { label: "One-pager (PDF)", url: "Google%20Local%20Service%20Ads/Google%20Local%20Services%20%28LSA%29%20-%20CINC.pdf" },
+        { label: "Talking points (PDF)", url: "Google%20Local%20Service%20Ads/LSA%20-%20Talking%20Points.pdf" }
+      ],
+      notes: "",
+      plan: {
+        milestones: [],
+        internal: [
+          { title: "Talking points for Client Services", due: "", owner: "", status: "complete",
+            links: [{ label: "Talking points (PDF)", url: "Google%20Local%20Service%20Ads/LSA%20-%20Talking%20Points.pdf" }], notes: "" },
+          { title: "Advisor Edge feature (internal advisor newsletter)", due: "", owner: "", status: "complete", links: [], notes: "" }
+        ],
+        sales: [
+          { title: "Talking points for Sales", due: "", owner: "", status: "complete",
+            links: [{ label: "Talking points (PDF)", url: "Google%20Local%20Service%20Ads/LSA%20-%20Talking%20Points.pdf" }], notes: "" },
+          { title: "LSA one-pager (leave-behind)", due: "", owner: "", status: "complete",
+            links: [{ label: "One-pager (PDF)", url: "Google%20Local%20Service%20Ads/Google%20Local%20Services%20%28LSA%29%20-%20CINC.pdf" }], notes: "" }
+        ],
+        external: [
+          { title: "cinclsa.com landing page", due: "", owner: "", status: "complete",
+            links: [{ label: "cinclsa.com", url: "https://cinclsa.com" }], notes: "" },
+          { title: "Agent Edge feature (client newsletter)", due: "", owner: "", status: "complete", links: [], notes: "" },
+          { title: "LSA one-pager", due: "", owner: "", status: "complete",
+            links: [{ label: "One-pager (PDF)", url: "Google%20Local%20Service%20Ads/Google%20Local%20Services%20%28LSA%29%20-%20CINC.pdf" }], notes: "" }
+        ]
+      }
     },
     {
       id: "gtm-facebook-listing-ads",

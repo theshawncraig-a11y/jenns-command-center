@@ -676,8 +676,11 @@ function gtmPastRow(p) {
 const STAGE_STATUS = { current: ["confirmed", "In flight"], future: ["future", "Future"], past: ["complete", "Shipped"] };
 
 function deliverableRow(d) {
+  const chip = (!d.due && d.status === "complete")
+    ? `<div class="datechip tbd"><div class="m">Done</div><div class="d">—</div></div>`
+    : dateChip(d.due);
   return `<div class="row">
-    ${dateChip(d.due)}
+    ${chip}
     <div class="row-main">
       <div class="row-title">${esc(d.title)}${flagHtml(d)}</div>
       <div class="row-meta">${[
