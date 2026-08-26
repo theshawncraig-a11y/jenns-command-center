@@ -28,6 +28,15 @@ Valid values:
   Content `status`: `idea`, `drafting`, `in-review`, `scheduled`, `published`.
 - GTM `stage`: `past`, `current`, `future`. New current GTM projects should get the
   standard 6-item launch `checklist` (copy from an existing current project).
+- Every GTM project has its own page at `#gtm/<id>` showing a timeline and the
+  marketing plan. The plan lives in the project's `plan` field:
+  `plan.milestones` is `[{ date, label, done? }]`; `plan.internal` (Client
+  Services), `plan.sales`, and `plan.external` (existing clients & prospects)
+  are deliverable arrays of `{ title, due, owner, status, links, notes }` with
+  status `planned` | `in-progress` | `complete`. When the user mentions a
+  deliverable for a GTM launch, put it in the right track of that project's
+  plan. The page timeline is generated from milestone dates + deliverable due
+  dates automatically.
 
 All dates are `YYYY-MM-DD` strings. Every item's `links` is an array of
 `{ label, url }` pointing to where assets actually live (Google Drive, Canva,

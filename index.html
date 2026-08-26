@@ -266,6 +266,11 @@
   .status.s-complete, .status.s-published { color: var(--teal-text); }
   .status.s-cancelled .dot { background: var(--red); }
   .status.s-cancelled { color: var(--red-text); }
+  .status.s-planned .dot { background: #b8c2cc; }
+  .status.s-in-progress .dot { background: var(--amber); }
+  .status.s-in-progress { color: var(--amber-text); }
+  .status.s-future .dot { background: var(--violet); }
+  .status.s-future { color: var(--violet-text); }
 
   /* ---------- GTM board ---------- */
   .board { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 18px; }
@@ -281,26 +286,62 @@
     box-shadow: var(--shadow-card); padding: 16px 18px; margin-bottom: 12px;
     transition: box-shadow .2s var(--ease), transform .2s var(--ease), border-color .2s var(--ease);
   }
-  .gtm-card.expandable { cursor: pointer; }
-  .gtm-card.expandable:hover { box-shadow: var(--shadow-lift); transform: translateY(-1px); border-color: var(--line-strong); }
+  .gtm-card.linked { cursor: pointer; }
+  .gtm-card.linked:hover { box-shadow: var(--shadow-lift); transform: translateY(-1px); border-color: var(--line-strong); }
+  .row.linked { cursor: pointer; }
   .gtm-head { display: flex; align-items: center; gap: 10px; }
   .gtm-title { font-size: 14.5px; font-weight: 600; color: var(--ink); letter-spacing: -0.005em; flex: 1; min-width: 0; }
-  .gtm-card .chev {
-    flex-shrink: 0; width: 16px; height: 16px; color: var(--text-3);
-    transition: transform .25s var(--ease);
+  .gtm-card .arrow, .row.linked .arrow {
+    flex-shrink: 0; width: 15px; height: 15px; color: var(--text-3);
+    transition: transform .2s var(--ease), color .2s var(--ease);
   }
-  .gtm-card.open .chev { transform: rotate(180deg); }
+  .row.linked .arrow { align-self: center; }
+  .gtm-card.linked:hover .arrow, .row.linked:hover .arrow { transform: translateX(2px); color: var(--accent-text); }
   .gtm-meta { font-size: 12.5px; color: var(--text-2); margin-top: 3px; }
   .ticks { display: flex; gap: 4px; margin-top: 12px; align-items: center; }
   .ticks .t { height: 4px; flex: 1; border-radius: 2px; background: var(--tick-bg); transition: background .2s; }
   .ticks .t.done { background: var(--teal); }
   .ticks .pct { font-size: 11px; font-weight: 600; color: var(--text-3); margin-left: 6px; font-variant-numeric: tabular-nums; }
-  .gtm-detail {
-    max-height: 0; overflow: hidden; opacity: 0;
-    transition: max-height .3s var(--ease), opacity .25s var(--ease), margin .3s var(--ease);
+  /* ---------- GTM project page ---------- */
+  .back-link {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 13px; font-weight: 500; color: var(--text-2); margin-bottom: 20px;
   }
-  .gtm-card.open .gtm-detail { max-height: 600px; opacity: 1; margin-top: 14px; }
-  .gtm-detail-inner { border-top: 1px solid var(--line); padding-top: 12px; }
+  .back-link:hover { color: var(--accent-text); text-decoration: none; }
+  .back-link svg { width: 14px; height: 14px; }
+  .detail-title { font-size: 27px; font-weight: 600; letter-spacing: -0.02em; color: var(--ink); margin: 0; line-height: 1.25; }
+  .detail-meta { font-size: 13.5px; color: var(--text-2); margin-top: 8px; display: flex; gap: 14px; flex-wrap: wrap; align-items: center; }
+  .detail-desc { font-size: 14.5px; color: var(--text-2); max-width: 68ch; margin-top: 12px; }
+  .detail-head .row-links { margin-top: 14px; }
+
+  .timeline { padding: 6px 0 0 2px; }
+  .tl-item { position: relative; padding: 0 0 24px 32px; }
+  .tl-item::before {
+    content: ""; position: absolute; left: 6px; top: 18px; bottom: 0;
+    width: 1.5px; background: var(--line);
+  }
+  .tl-item:last-child::before { display: none; }
+  .tl-dot {
+    position: absolute; left: 0; top: 3px; width: 14px; height: 14px;
+    border-radius: 50%; background: var(--bg); border: 2.5px solid var(--text-3);
+  }
+  .tl-dot.milestone { border-color: var(--accent); background: var(--accent); }
+  .tl-dot.complete { border-color: var(--teal); background: var(--teal); }
+  .tl-dot.in-progress { border-color: var(--amber); }
+  .tl-date { font-size: 11px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--text-3); }
+  .tl-title { font-size: 14.5px; font-weight: 500; color: var(--text-1); margin-top: 1px; }
+  .tl-title .flag { font-size: 11px; font-weight: 500; color: var(--text-3); border: 1px dashed var(--line-strong); border-radius: 6px; padding: 1px 6px; margin-left: 8px; vertical-align: 1px; }
+  .tl-track { font-size: 12px; color: var(--text-3); margin-top: 1px; }
+  .tl-today {
+    position: relative; margin: 0 0 24px; padding-left: 32px;
+    font-size: 10.5px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase;
+    color: var(--accent-text); line-height: 14px;
+  }
+  .tl-today::before {
+    content: ""; position: absolute; left: 0; top: 6px;
+    width: 14px; height: 2px; background: var(--accent); border-radius: 1px;
+  }
+  .checklist-card { padding: 8px 20px 12px; }
   .checklist { list-style: none; margin: 0; padding: 0; }
   .checklist li {
     display: flex; align-items: center; gap: 9px;
@@ -441,6 +482,7 @@
   <section id="view-events" class="view"></section>
   <section id="view-content" class="view"></section>
   <section id="view-gtm" class="view"></section>
+  <section id="view-gtm-detail" class="view"></section>
   <section id="view-search" class="view"></section>
 </main>
 
@@ -471,12 +513,20 @@ const EVENT_TYPE_LABELS = { "tradeshow": "Tradeshow", "webinar": "Webinar" };
 const STATUS_LABELS = {
   "idea": "Idea", "planning": "Planning", "confirmed": "Confirmed",
   "complete": "Complete", "cancelled": "Cancelled", "drafting": "Drafting",
-  "in-review": "In review", "scheduled": "Scheduled", "published": "Published"
+  "in-review": "In review", "scheduled": "Scheduled", "published": "Published",
+  "planned": "Planned", "in-progress": "In progress", "future": "Future"
 };
+const TRACKS = [
+  { key: "internal", label: "Client Services", sub: "Internal" },
+  { key: "sales", label: "Sales", sub: "Internal" },
+  { key: "external", label: "Existing clients & prospects", sub: "External" }
+];
 const MONTHS = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
 
 const CHECK_SVG = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4 10-10"/></svg>`;
 const CHEV_SVG = `<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg>`;
+const ARROW_SVG = `<svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg>`;
+const BACK_SVG = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>`;
 const ICONS = {
   calendar: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M8 3v4M16 3v4M3 10h18"/></svg>`,
   doc: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h4"/></svg>`,
@@ -583,43 +633,133 @@ function contentRow(c, opts) {
 }
 
 /* ---------- GTM cards ---------- */
+function planStats(p) {
+  const plan = p.plan || {};
+  const all = TRACKS.flatMap(t => plan[t.key] || []);
+  return { total: all.length, done: all.filter(d => d.status === "complete").length };
+}
 function gtmCard(p) {
   const cl = p.checklist || [];
   const done = cl.filter(i => i.done).length;
-  const hasDetail = cl.length || p.description || p.notes || (p.links && p.links.length);
-  return `<div class="gtm-card ${hasDetail ? "expandable" : ""}" data-id="${esc(p.id)}">
+  const ps = planStats(p);
+  return `<div class="gtm-card linked" data-id="${esc(p.id)}">
     <div class="gtm-head">
       <div class="gtm-title">${esc(p.title)}</div>
-      ${hasDetail ? CHEV_SVG : ""}
+      ${ARROW_SVG}
     </div>
     ${p.launchDate ? `<div class="gtm-meta">Launch ${fmtDate(p.launchDate)}${soonText(p.launchDate)}</div>` : ""}
+    ${ps.total ? `<div class="gtm-meta">${ps.done}/${ps.total} deliverables complete</div>` : ""}
     ${cl.length ? `<div class="ticks">${cl.map(i => `<span class="t ${i.done ? "done" : ""}"></span>`).join("")}<span class="pct">${done}/${cl.length}</span></div>` : ""}
-    ${hasDetail ? `<div class="gtm-detail"><div class="gtm-detail-inner">
-      ${p.description ? `<div class="gtm-notes" style="margin:0 0 10px">${esc(p.description)}</div>` : ""}
-      ${cl.length ? `<ul class="checklist">${cl.map(i =>
-        `<li class="${i.done ? "done" : ""}"><span class="ck">${i.done ? CHECK_SVG : ""}</span>${esc(i.item)}</li>`).join("")}</ul>` : ""}
-      ${p.notes ? `<div class="gtm-notes">${esc(p.notes)}</div>` : ""}
-      ${linksHtml(p.links)}
-    </div></div>` : ""}
   </div>`;
 }
 function bindGtmCards(scope) {
-  scope.querySelectorAll(".gtm-card.expandable").forEach(card => {
+  scope.querySelectorAll("[data-id].linked").forEach(card => {
     card.addEventListener("click", ev => {
       if (ev.target.closest("a")) return;
-      card.classList.toggle("open");
+      location.hash = "#gtm/" + card.dataset.id;
     });
   });
 }
 function gtmPastRow(p) {
-  return `<div class="row gtm-past-row">
+  return `<div class="row gtm-past-row linked" data-id="${esc(p.id)}">
     <div class="row-main">
       <div class="row-title">${esc(p.title)}</div>
       ${p.launchDate || p.notes ? `<div class="row-meta">${p.launchDate ? "Launched " + fmtDate(p.launchDate) : ""}${p.launchDate && p.notes ? " · " : ""}${esc(p.notes || "")}</div>` : ""}
       ${linksHtml(p.links)}
     </div>
     <div class="row-side">${statusHtml("complete")}</div>
+    ${ARROW_SVG}
   </div>`;
+}
+
+/* ---------- GTM project page ---------- */
+const STAGE_STATUS = { current: ["confirmed", "In flight"], future: ["future", "Future"], past: ["complete", "Shipped"] };
+
+function deliverableRow(d) {
+  return `<div class="row">
+    ${dateChip(d.due)}
+    <div class="row-main">
+      <div class="row-title">${esc(d.title)}${flagHtml(d)}</div>
+      <div class="row-meta">${[
+        d.due ? "Due " + fmtDate(d.due) + soonText(d.due) : "",
+        d.owner ? esc(d.owner) : ""
+      ].filter(Boolean).join(" · ")}</div>
+      ${d.notes ? `<div class="row-notes">${esc(d.notes)}</div>` : ""}
+      ${linksHtml(d.links)}
+      ${statusHtml(d.status || "planned", "row-status-inline")}
+    </div>
+    <div class="row-side">${statusHtml(d.status || "planned")}</div>
+  </div>`;
+}
+
+function renderGtmDetail(id) {
+  const el = document.getElementById("view-gtm-detail");
+  const p = DATA.gtm.find(x => x.id === id);
+  if (!p) {
+    el.innerHTML = `<a class="back-link" href="#gtm">${BACK_SVG}GTM board</a>` +
+      emptyHtml("rocket", "That project isn't in the tracker.");
+    return;
+  }
+  const plan = p.plan || {};
+  const st = STAGE_STATUS[p.stage] || STAGE_STATUS.future;
+
+  const entries = [];
+  (plan.milestones || []).forEach(m => {
+    if (m.date) entries.push({ date: m.date, title: m.label, track: "Milestone", dot: "milestone", sample: m.sample });
+  });
+  TRACKS.forEach(t => (plan[t.key] || []).forEach(d => {
+    if (d.due) entries.push({ date: d.due, title: d.title, track: `${t.sub} · ${t.label}`, dot: d.status || "planned", sample: d.sample });
+  }));
+  entries.sort((a, b) => a.date < b.date ? -1 : 1);
+
+  let timelineHtml = "";
+  if (entries.length) {
+    let todayPlaced = false;
+    timelineHtml = `<div class="timeline">` + entries.map(en => {
+      let marker = "";
+      if (!todayPlaced && daysUntil(en.date) >= 0) { marker = `<div class="tl-today">Today</div>`; todayPlaced = true; }
+      return marker + `<div class="tl-item">
+        <span class="tl-dot ${en.dot}"></span>
+        <div class="tl-date">${fmtDate(en.date)}</div>
+        <div class="tl-title">${esc(en.title)}${en.sample ? `<span class="flag">Sample</span>` : ""}</div>
+        <div class="tl-track">${esc(en.track)}</div>
+      </div>`;
+    }).join("") + (todayPlaced ? "" : `<div class="tl-today">Today</div>`) + `</div>`;
+  } else {
+    timelineHtml = emptyHtml("calendar", "No dated milestones or deliverables yet — ask Claude Code to add them.");
+  }
+
+  el.innerHTML = `
+    <a class="back-link" href="#gtm">${BACK_SVG}GTM board</a>
+    <div class="detail-head">
+      <h1 class="detail-title">${esc(p.title)}</h1>
+      <div class="detail-meta">
+        ${statusHtml(st[0]).replace(esc(STATUS_LABELS[st[0]]), st[1])}
+        ${p.launchDate ? `<span>Launch ${fmtDate(p.launchDate)}${soonText(p.launchDate)}</span>` : ""}
+      </div>
+      ${p.description ? `<div class="detail-desc">${esc(p.description)}</div>` : ""}
+      ${linksHtml(p.links)}
+    </div>
+
+    <div class="eyebrow" style="margin-top:36px">Timeline</div>
+    ${timelineHtml}
+
+    ${TRACKS.map(t => {
+      const items = (plan[t.key] || []).slice().sort((a,b) => (a.due||"9999") < (b.due||"9999") ? -1 : 1);
+      return `<div class="eyebrow">${esc(t.sub)} — ${esc(t.label)}</div>` +
+        (items.length ? groupWrap(items.map(deliverableRow).join(""))
+          : emptyHtml("doc", `No ${t.label} deliverables yet.`));
+    }).join("")}
+
+    ${p.checklist && p.checklist.length ? `
+      <div class="eyebrow">Launch checklist</div>
+      <div class="group checklist-card">
+        <ul class="checklist">${p.checklist.map(i =>
+          `<li class="${i.done ? "done" : ""}"><span class="ck">${i.done ? CHECK_SVG : ""}</span>${esc(i.item)}</li>`).join("")}</ul>
+      </div>` : ""}
+
+    ${p.notes ? `<div class="eyebrow">Notes</div><div class="group" style="padding:14px 20px"><div class="row-notes" style="margin:0">${esc(p.notes)}</div></div>` : ""}
+  `;
 }
 
 /* ---------- Archive grouping ---------- */
@@ -851,9 +991,10 @@ function renderSearch(q) {
 const VIEWS = { dashboard: renderDashboard, events: renderEvents, content: renderContent, gtm: renderGtm };
 const searchInput = document.getElementById("search");
 
-function show(viewId) {
+function show(viewId, navKey) {
+  navKey = navKey || viewId;
   document.querySelectorAll("nav a").forEach(a =>
-    a.classList.toggle("active", a.dataset.view === viewId));
+    a.classList.toggle("active", a.dataset.view === navKey));
   document.querySelectorAll(".view").forEach(v => {
     const on = v.id === "view-" + viewId;
     if (on && !v.classList.contains("active")) { v.classList.remove("active"); void v.offsetWidth; }
@@ -863,10 +1004,15 @@ function show(viewId) {
 
 function route() {
   const hash = (location.hash || "#dashboard").slice(1);
-  const view = VIEWS[hash] ? hash : "dashboard";
   if (searchInput.value.trim()) { searchInput.value = ""; }
-  VIEWS[view]();
-  show(view);
+  if (hash.startsWith("gtm/")) {
+    renderGtmDetail(decodeURIComponent(hash.slice(4)));
+    show("gtm-detail", "gtm");
+  } else {
+    const view = VIEWS[hash] ? hash : "dashboard";
+    VIEWS[view]();
+    show(view);
+  }
   window.scrollTo({ top: 0 });
 }
 

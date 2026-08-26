@@ -91,6 +91,26 @@ window.COMMAND_CENTER_DATA = {
       launchDate: "",
       links: [],
       notes: "",
+      plan: {
+        milestones: [
+          { date: "2026-09-08", label: "Beta rollout to pilot teams", done: true, sample: true },
+          { date: "2026-09-22", label: "GA launch", sample: true },
+          { date: "2026-10-01", label: "Launch webinar", sample: true }
+        ],
+        internal: [
+          { title: "CS training deck & FAQ", due: "2026-09-10", owner: "Jenn", status: "in-progress", links: [], notes: "", sample: true },
+          { title: "Help center article & support macros", due: "2026-09-15", owner: "", status: "planned", links: [], notes: "", sample: true }
+        ],
+        sales: [
+          { title: "One-pager & battlecard", due: "2026-09-12", owner: "Jenn", status: "in-progress", links: [], notes: "", sample: true },
+          { title: "Demo script & talk track", due: "2026-09-17", owner: "", status: "planned", links: [], notes: "", sample: true }
+        ],
+        external: [
+          { title: "Launch email to existing clients", due: "2026-09-22", owner: "", status: "planned", links: [], notes: "", sample: true },
+          { title: "In-app announcement", due: "2026-09-22", owner: "", status: "planned", links: [], notes: "", sample: true },
+          { title: "Prospect campaign (HubSpot)", due: "2026-09-29", owner: "", status: "planned", links: [], notes: "", sample: true }
+        ]
+      },
       checklist: [
         { item: "Positioning & messaging doc", done: false },
         { item: "Sales enablement / one-pager", done: false },
@@ -108,6 +128,7 @@ window.COMMAND_CENTER_DATA = {
       launchDate: "",
       links: [],
       notes: "",
+      plan: { milestones: [], internal: [], sales: [], external: [] },
       checklist: [
         { item: "Positioning & messaging doc", done: false },
         { item: "Sales enablement / one-pager", done: false },
@@ -125,6 +146,7 @@ window.COMMAND_CENTER_DATA = {
       launchDate: "",
       links: [],
       notes: "",
+      plan: { milestones: [], internal: [], sales: [], external: [] },
       checklist: [
         { item: "Positioning & messaging doc", done: false },
         { item: "Sales enablement / one-pager", done: false },
@@ -142,6 +164,7 @@ window.COMMAND_CENTER_DATA = {
       launchDate: "",
       links: [],
       notes: "",
+      plan: { milestones: [], internal: [], sales: [], external: [] },
       checklist: [
         { item: "Positioning & messaging doc", done: false },
         { item: "Sales enablement / one-pager", done: false },
@@ -159,6 +182,7 @@ window.COMMAND_CENTER_DATA = {
       launchDate: "",
       links: [],
       notes: "",
+      plan: { milestones: [], internal: [], sales: [], external: [] },
       checklist: [
         { item: "Positioning & messaging doc", done: false },
         { item: "Sales enablement / one-pager", done: false },
@@ -176,6 +200,7 @@ window.COMMAND_CENTER_DATA = {
       launchDate: "",
       links: [],
       notes: "",
+      plan: { milestones: [], internal: [], sales: [], external: [] },
       checklist: []
     },
     {
