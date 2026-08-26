@@ -38,6 +38,11 @@ Valid values:
   plan. The page timeline is generated from milestone dates + deliverable due
   dates automatically.
 
+Checklist items on GTM pages are clickable, but clicks only persist in that
+viewer's browser (localStorage overrides). When the user asks to check off a
+checklist item, set `done: true` in `data.js` — that's the permanent,
+team-visible state.
+
 All dates are `YYYY-MM-DD` strings. Every item's `links` is an array of
 `{ label, url }` pointing to where assets actually live (Google Drive, Canva,
 HubSpot, published URLs) — this site is the map, not the filing cabinet.

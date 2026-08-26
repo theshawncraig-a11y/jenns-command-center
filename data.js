@@ -217,7 +217,7 @@ window.COMMAND_CENTER_DATA = {
       title: "Google Local Service Ads",
       stage: "past",
       description: "Managed Google Local Services Ads offering for CINC clients, with a dedicated landing page at cinclsa.com.",
-      launchDate: "",
+      launchDate: "2026-07-29",
       links: [
         { label: "Landing page (cinclsa.com)", url: "https://cinclsa.com" },
         { label: "One-pager (PDF)", url: "Google%20Local%20Service%20Ads/Google%20Local%20Services%20%28LSA%29%20-%20CINC.pdf" },
@@ -225,11 +225,13 @@ window.COMMAND_CENTER_DATA = {
       ],
       notes: "",
       plan: {
-        milestones: [],
+        milestones: [
+          { date: "2026-07-29", label: "Launch", done: true }
+        ],
         internal: [
           { title: "Talking points for Client Services", due: "", owner: "", status: "complete",
             links: [{ label: "Talking points (PDF)", url: "Google%20Local%20Service%20Ads/LSA%20-%20Talking%20Points.pdf" }], notes: "" },
-          { title: "Advisor Edge feature (internal advisor newsletter)", due: "", owner: "", status: "complete", links: [], notes: "" }
+          { title: "Advisor Edge feature (internal advisor newsletter)", due: "2026-08-04", owner: "", status: "complete", links: [], notes: "" }
         ],
         sales: [
           { title: "Talking points for Sales", due: "", owner: "", status: "complete",
@@ -240,7 +242,7 @@ window.COMMAND_CENTER_DATA = {
         external: [
           { title: "cinclsa.com landing page", due: "", owner: "", status: "complete",
             links: [{ label: "cinclsa.com", url: "https://cinclsa.com" }], notes: "" },
-          { title: "Agent Edge feature (client newsletter)", due: "", owner: "", status: "complete", links: [], notes: "" },
+          { title: "Agent Edge feature (client newsletter)", due: "2026-08-14", owner: "", status: "complete", links: [], notes: "" },
           { title: "LSA one-pager", due: "", owner: "", status: "complete",
             links: [{ label: "One-pager (PDF)", url: "Google%20Local%20Service%20Ads/Google%20Local%20Services%20%28LSA%29%20-%20CINC.pdf" }], notes: "" }
         ]

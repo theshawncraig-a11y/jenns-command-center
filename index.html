@@ -342,6 +342,11 @@
     width: 14px; height: 2px; background: var(--accent); border-radius: 1px;
   }
   .checklist-card { padding: 8px 20px 12px; }
+  .checklist li.clickable { cursor: pointer; border-radius: 8px; margin: 0 -8px; padding: 5px 8px; transition: background .15s var(--ease); }
+  .checklist li.clickable:hover { background: var(--control-bg); }
+  .checklist li.clickable:hover .ck { border-color: var(--teal); }
+  .ck-local { width: 5px; height: 5px; border-radius: 50%; background: var(--amber); margin-left: 8px; display: inline-block; vertical-align: 2px; }
+  .ck-note { font-size: 12px; color: var(--text-3); padding: 10px 8px 4px; border-top: 1px solid var(--line); margin-top: 8px; }
   .checklist { list-style: none; margin: 0; padding: 0; }
   .checklist li {
     display: flex; align-items: center; gap: 9px;
@@ -632,6 +637,34 @@ function contentRow(c, opts) {
   </div>`;
 }
 
+/* ---------- Checklist local overrides ---------- */
+const CK_KEY = "jcc-checklist";
+function loadCk() { try { return JSON.parse(localStorage.getItem(CK_KEY)) || {}; } catch (e) { return {}; } }
+function saveCk(m) { try { localStorage.setItem(CK_KEY, JSON.stringify(m)); } catch (e) {} }
+let CK = loadCk();
+(function cleanStale() {
+  let changed = false;
+  DATA.gtm.forEach(p => (p.checklist || []).forEach((it, i) => {
+    const k = p.id + "|" + i;
+    if (k in CK && CK[k] === !!it.done) { delete CK[k]; changed = true; }
+  }));
+  if (changed) saveCk(CK);
+})();
+function checklistOf(p) {
+  return (p.checklist || []).map((it, i) => {
+    const k = p.id + "|" + i;
+    const local = k in CK;
+    return { item: it.item, done: local ? CK[k] : !!it.done, local };
+  });
+}
+function toggleCk(p, idx) {
+  const k = p.id + "|" + idx;
+  const base = !!(p.checklist[idx] && p.checklist[idx].done);
+  const cur = (k in CK) ? CK[k] : base;
+  if (!cur === base) delete CK[k]; else CK[k] = !cur;
+  saveCk(CK);
+}
+
 /* ---------- GTM cards ---------- */
 function planStats(p) {
   const plan = p.plan || {};
@@ -639,7 +672,7 @@ function planStats(p) {
   return { total: all.length, done: all.filter(d => d.status === "complete").length };
 }
 function gtmCard(p) {
-  const cl = p.checklist || [];
+  const cl = checklistOf(p);
   const done = cl.filter(i => i.done).length;
   const ps = planStats(p);
   return `<div class="gtm-card linked" data-id="${esc(p.id)}">
@@ -684,7 +717,7 @@ function deliverableRow(d) {
     <div class="row-main">
       <div class="row-title">${esc(d.title)}${flagHtml(d)}</div>
       <div class="row-meta">${[
-        d.due ? "Due " + fmtDate(d.due) + soonText(d.due) : "",
+        d.due ? (d.status === "complete" ? fmtDate(d.due) : "Due " + fmtDate(d.due) + soonText(d.due)) : "",
         d.owner ? esc(d.owner) : ""
       ].filter(Boolean).join(" · ")}</div>
       ${d.notes ? `<div class="row-notes">${esc(d.notes)}</div>` : ""}
@@ -754,15 +787,27 @@ function renderGtmDetail(id) {
           : emptyHtml("doc", `No ${t.label} deliverables yet.`));
     }).join("")}
 
-    ${p.checklist && p.checklist.length ? `
+    ${p.checklist && p.checklist.length ? (() => {
+      const cks = checklistOf(p);
+      const anyLocal = cks.some(i => i.local);
+      return `
       <div class="eyebrow">Launch checklist</div>
       <div class="group checklist-card">
-        <ul class="checklist">${p.checklist.map(i =>
-          `<li class="${i.done ? "done" : ""}"><span class="ck">${i.done ? CHECK_SVG : ""}</span>${esc(i.item)}</li>`).join("")}</ul>
-      </div>` : ""}
+        <ul class="checklist">${cks.map((i, idx) =>
+          `<li class="${i.done ? "done" : ""} clickable" data-ck-idx="${idx}" role="checkbox" aria-checked="${i.done}" tabindex="0"><span class="ck">${i.done ? CHECK_SVG : ""}</span>${esc(i.item)}${i.local ? `<span class="ck-local" title="Changed on this device"></span>` : ""}</li>`).join("")}</ul>
+        ${anyLocal ? `<div class="ck-note">Checked items are saved on this device only — ask Claude Code to make them permanent for the whole team.</div>` : ""}
+      </div>`;
+    })() : ""}
 
     ${p.notes ? `<div class="eyebrow">Notes</div><div class="group" style="padding:14px 20px"><div class="row-notes" style="margin:0">${esc(p.notes)}</div></div>` : ""}
   `;
+  el.querySelectorAll("[data-ck-idx]").forEach(li => {
+    const toggle = () => { toggleCk(p, Number(li.dataset.ckIdx)); renderGtmDetail(id); };
+    li.addEventListener("click", toggle);
+    li.addEventListener("keydown", e => {
+      if (e.key === " " || e.key === "Enter") { e.preventDefault(); toggle(); }
+    });
+  });
 }
 
 /* ---------- Archive grouping ---------- */
