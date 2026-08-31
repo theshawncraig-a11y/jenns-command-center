@@ -112,6 +112,31 @@ window.COMMAND_CENTER_DATA = {
       owner: "",
       links: [],
       notes: "Drafted — publishes when the phased rollout begins on 9/2."
+    },
+    {
+      id: "cnt-matt-mitchell-referral-engine",
+      title: "How This Ohio Team Leader Turned Internet Leads into a Referral Engine",
+      type: "testimonial",
+      category: "client-success",
+      status: "published",
+      dueDate: "",
+      publishDate: "2026-08-26",
+      owner: "",
+      links: [
+        { label: "Read on cincpro.com", url: "https://www.cincpro.com/blog/how-this-ohio-team-leader-turned-internet-leads-into-a-referral-engine" }
+      ],
+      notes: "Client: Matt Mitchell (Ohio team leader)."
+    },
+    {
+      id: "cnt-lead-gen-companies-guide",
+      title: "Best real estate lead generation companies in 2026: A complete guide",
+      type: "white-paper",
+      category: "industry",
+      status: "in-review",
+      dueDate: "2026-09-15",
+      owner: "",
+      links: [],
+      notes: "With our vendor for revisions. Q3 white paper."
     }
   ],
 
