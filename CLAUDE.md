@@ -19,7 +19,13 @@ When the user asks to add/change/remove an event, content piece, or GTM project:
 1. Edit `data.js` only. Follow the existing object shapes exactly.
 2. Set `meta.updated` to today's date (YYYY-MM-DD).
 3. Remove `sample: true` placeholder items once real items of that kind exist.
-4. Commit with a short message describing the change and push to GitHub
+4. Bump the `?v=` query string on the `<script src="data.js?v=...">` tag in
+   `index.html` (any changed value works, e.g. `date +%Y%m%d%H%M%S`). The site
+   is hosted on GitHub Pages, which caches `data.js` for up to 10 minutes at
+   the CDN edge — without a new version string, viewers can see stale data
+   for the rest of that window even after the push lands. Bumping it forces
+   an immediate fresh fetch instead of waiting out the cache.
+5. Commit with a short message describing the change and push to GitHub
    (the team views the published site, so unpushed changes are invisible to them).
 
 Valid values:
