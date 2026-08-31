@@ -153,6 +153,50 @@ window.COMMAND_CENTER_DATA = {
       owner: "",
       links: [],
       notes: "With our vendor for revisions. Q3 white paper."
+    },
+    {
+      id: "cnt-client-story-molly",
+      title: "Client success story: Molly",
+      type: "testimonial",
+      category: "client-success",
+      status: "drafting",
+      dueDate: "",
+      owner: "",
+      links: [],
+      notes: "Recorded — not yet edited."
+    },
+    {
+      id: "cnt-client-story-susan",
+      title: "Client success story: Susan",
+      type: "testimonial",
+      category: "client-success",
+      status: "drafting",
+      dueDate: "",
+      owner: "",
+      links: [],
+      notes: "Recorded — not yet edited."
+    },
+    {
+      id: "cnt-client-story-patti",
+      title: "Client success story: Patti",
+      type: "testimonial",
+      category: "client-success",
+      status: "drafting",
+      dueDate: "",
+      owner: "",
+      links: [],
+      notes: "Recorded — not yet edited."
+    },
+    {
+      id: "cnt-client-story-stacia",
+      title: "Client success story: Stacia",
+      type: "testimonial",
+      category: "client-success",
+      status: "drafting",
+      dueDate: "",
+      owner: "",
+      links: [],
+      notes: "Recorded — not yet edited."
     }
   ],
 
