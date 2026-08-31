@@ -73,6 +73,7 @@ window.COMMAND_CENTER_DATA = {
   // CONTENT MARKETING — types: "blog" | "white-paper" | "testimonial"
   //   | "buy-side-brief" | "press-release"
   // statuses: "idea" | "drafting" | "in-review" | "scheduled" | "published"
+  // categories: "product" | "client-success" | "industry"
   // ---------------------------------------------------------------
   content: [
     {
@@ -80,6 +81,7 @@ window.COMMAND_CENTER_DATA = {
       sample: true,
       title: "Buy-side industry brief: Q3 market shift",
       type: "buy-side-brief",
+      category: "industry",
       status: "drafting",
       dueDate: "2026-09-12",
       owner: "Jenn",
@@ -90,6 +92,7 @@ window.COMMAND_CENTER_DATA = {
       id: "cnt-mms-photo-texting-article",
       title: "See What Your Leads See: Photo Texting Now Lives Inside CINC",
       type: "blog",
+      category: "product",
       status: "published",
       dueDate: "",
       publishDate: "2026-08-27",
@@ -103,6 +106,7 @@ window.COMMAND_CENTER_DATA = {
       id: "cnt-voip-dialer-article",
       title: "Mobile VOIP Dialer launch",
       type: "blog",
+      category: "product",
       status: "scheduled",
       dueDate: "2026-09-02",
       owner: "",

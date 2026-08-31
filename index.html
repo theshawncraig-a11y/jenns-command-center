@@ -620,6 +620,7 @@ const CONTENT_TYPE_LABELS = {
   "buy-side-brief": "Buy-side brief", "press-release": "Press release"
 };
 const EVENT_TYPE_LABELS = { "tradeshow": "Tradeshow", "webinar": "Webinar" };
+const CONTENT_CATEGORY_LABELS = { "product": "Product", "client-success": "Client success story", "industry": "Industry topic" };
 const STATUS_LABELS = {
   "idea": "Idea", "planning": "Planning", "confirmed": "Confirmed",
   "complete": "Complete", "cancelled": "Cancelled", "drafting": "Drafting",
@@ -732,6 +733,7 @@ function contentRow(c, opts) {
       <div class="row-title">${esc(c.title)}${flagHtml(c)}</div>
       <div class="row-meta">
         <span class="kind">${esc(CONTENT_TYPE_LABELS[c.type] || c.type)}</span>
+        ${c.category ? " · " + esc(CONTENT_CATEGORY_LABELS[c.category] || c.category) : ""}
         ${dateLabel ? " · " + dateLabel : ""}${c.owner ? " · " + esc(c.owner) : ""}
       </div>
       ${!opts.compact && c.notes ? `<div class="row-notes">${esc(c.notes)}</div>` : ""}
@@ -987,9 +989,11 @@ function renderContent() {
   const el = document.getElementById("view-content");
   const typeF = el.dataset.typeFilter || "all";
   const statusF = el.dataset.statusFilter || "all";
+  const catF = el.dataset.categoryFilter || "all";
   let items = DATA.content.slice().sort((a,b) => (a.dueDate||"9999") < (b.dueDate||"9999") ? -1 : 1);
   if (typeF !== "all") items = items.filter(c => c.type === typeF);
   if (statusF !== "all") items = items.filter(c => c.status === statusF);
+  if (catF !== "all") items = items.filter(c => c.category === catF);
 
   const active = items.filter(c => c.status !== "published");
   const published = items.filter(c => c.status === "published")
@@ -998,6 +1002,10 @@ function renderContent() {
 
   el.innerHTML = `
     <div class="filters">
+      <select id="cnt-category">
+        <option value="all">All categories</option>
+        ${Object.entries(CONTENT_CATEGORY_LABELS).map(([k,v]) => `<option value="${k}">${v}</option>`).join("")}
+      </select>
       <select id="cnt-type">
         <option value="all">All types</option>
         ${Object.entries(CONTENT_TYPE_LABELS).map(([k,v]) => `<option value="${k}">${v}s</option>`).join("")}
@@ -1017,8 +1025,9 @@ function renderContent() {
           archiveSection(q, cs.length, cs.map(c => contentRow(c, {compact:true})).join(""))).join("")
       : emptyHtml("doc", "Published work will archive here by quarter.")}
   `;
-  const t = el.querySelector("#cnt-type"), s = el.querySelector("#cnt-status");
-  t.value = typeF; s.value = statusF;
+  const cat = el.querySelector("#cnt-category"), t = el.querySelector("#cnt-type"), s = el.querySelector("#cnt-status");
+  cat.value = catF; t.value = typeF; s.value = statusF;
+  cat.onchange = () => { el.dataset.categoryFilter = cat.value; renderContent(); };
   t.onchange = () => { el.dataset.typeFilter = t.value; renderContent(); };
   s.onchange = () => { el.dataset.statusFilter = s.value; renderContent(); };
 }
@@ -1126,7 +1135,7 @@ function renderSearch(q) {
   const match = (it, fields) => fields.some(f => (it[f] || "").toLowerCase().includes(needle));
 
   const evs = DATA.events.filter(e => match(e, ["title","location","notes","type","status"]));
-  const cnt = DATA.content.filter(c => match(c, ["title","notes","type","status"]));
+  const cnt = DATA.content.filter(c => match(c, ["title","notes","type","status","category"]));
   const gtm = DATA.gtm.filter(p => match(p, ["title","description","notes","stage"]));
   const total = evs.length + cnt.length + gtm.length;
 

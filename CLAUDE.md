@@ -26,6 +26,9 @@ Valid values:
 - Event `type`: `tradeshow`, `webinar`. Event `status`: `idea`, `planning`, `confirmed`, `complete`, `cancelled`.
 - Content `type`: `blog`, `white-paper`, `testimonial`, `buy-side-brief`, `press-release`.
   Content `status`: `idea`, `drafting`, `in-review`, `scheduled`, `published`.
+  Content `category`: `product`, `client-success`, `industry` — a separate axis from
+  `type` (category is the subject, type is the format). Filterable on the Content
+  page alongside type and status.
 - GTM `stage`: `past`, `current`, `future`. New current GTM projects should get the
   standard 6-item launch `checklist` (copy from an existing current project).
 - Every GTM project has its own page at `#gtm/<id>` showing a timeline and the
