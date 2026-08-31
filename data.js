@@ -66,6 +66,22 @@ window.COMMAND_CENTER_DATA = {
         { label: "Recording", url: "https://cinc.wistia.com/s/96er08ruzezkfua" }
       ],
       notes: "258 total registrants. Recording is live. Still need to send the follow-up email."
+    },
+    {
+      id: "evt-zillow-unlock",
+      title: "Zillow Unlock",
+      type: "tradeshow",
+      status: "planning",
+      startDate: "2026-10-12",
+      endDate: "2026-10-15",
+      location: "",
+      owner: "",
+      links: [],
+      notes: "",
+      todos: [
+        { title: "Choose who is going", due: "2026-09-04", owner: "", status: "planned", links: [], notes: "" },
+        { title: "Deliver creative", due: "2026-09-04", owner: "", status: "planned", links: [], notes: "" }
+      ]
     }
   ],
 

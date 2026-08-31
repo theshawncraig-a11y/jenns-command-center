@@ -571,6 +571,7 @@
 <main>
   <section id="view-dashboard" class="view"></section>
   <section id="view-events" class="view"></section>
+  <section id="view-event-detail" class="view"></section>
   <section id="view-content" class="view"></section>
   <section id="view-gtm" class="view"></section>
   <section id="view-gtm-detail" class="view"></section>
@@ -704,7 +705,8 @@ function groupWrap(rows) { return `<div class="group">${rows}</div>`; }
 /* ---------- Rows ---------- */
 function eventRow(e, opts) {
   opts = opts || {};
-  return `<div class="row">
+  const hasTodos = e.todos && e.todos.length;
+  return `<div class="row ${hasTodos ? "linked" : ""}" ${hasTodos ? `data-event-id="${esc(e.id)}"` : ""}>
     ${dateChip(e.startDate)}
     <div class="row-main">
       <div class="row-title">${esc(e.title)}${flagHtml(e)}</div>
@@ -718,7 +720,16 @@ function eventRow(e, opts) {
       ${statusHtml(e.status, "row-status-inline")}
     </div>
     <div class="row-side">${statusHtml(e.status)}</div>
+    ${hasTodos ? ARROW_SVG : ""}
   </div>`;
+}
+function bindEventRows(scope) {
+  scope.querySelectorAll("[data-event-id]").forEach(row => {
+    row.addEventListener("click", ev => {
+      if (ev.target.closest("a")) return;
+      location.hash = "#events/" + row.dataset.eventId;
+    });
+  });
 }
 
 function contentRow(c, opts) {
@@ -917,6 +928,55 @@ function renderGtmDetail(id) {
   });
 }
 
+/* ---------- Event detail page ---------- */
+function renderEventDetail(id) {
+  const el = document.getElementById("view-event-detail");
+  const e = DATA.events.find(x => x.id === id);
+  if (!e) {
+    el.innerHTML = `<a class="back-link" href="#events">${BACK_SVG}Events</a>` +
+      emptyHtml("calendar", "That event isn't in the tracker.");
+    return;
+  }
+  const todos = (e.todos || []).slice().sort((a,b) => (a.due||"9999") < (b.due||"9999") ? -1 : 1);
+
+  let timelineHtml = "";
+  const dated = todos.filter(t => t.due);
+  if (dated.length) {
+    let todayPlaced = false;
+    timelineHtml = `<div class="timeline">` + dated.map(t => {
+      let marker = "";
+      if (!todayPlaced && daysUntil(t.due) >= 0) { marker = `<div class="tl-today">Today</div>`; todayPlaced = true; }
+      return marker + `<div class="tl-item">
+        <span class="tl-dot ${t.status || "planned"}"></span>
+        <div class="tl-date">${fmtDate(t.due)}</div>
+        <div class="tl-title">${esc(t.title)}${flagHtml(t)}</div>
+      </div>`;
+    }).join("") + (todayPlaced ? "" : `<div class="tl-today">Today</div>`) + `</div>`;
+  } else {
+    timelineHtml = emptyHtml("calendar", "No dated to-dos yet — ask Claude Code to add them.");
+  }
+
+  el.innerHTML = `
+    <a class="back-link" href="#events">${BACK_SVG}Events</a>
+    <div class="detail-head">
+      <h1 class="detail-title">${esc(e.title)}</h1>
+      <div class="detail-meta">
+        ${statusHtml(e.status)}
+        ${e.startDate ? `<span>${fmtRange(e.startDate, e.endDate)}${soonText(e.startDate)}</span>` : ""}
+        ${e.location ? `<span>${esc(e.location)}</span>` : ""}
+      </div>
+      ${e.notes ? `<div class="detail-desc">${esc(e.notes)}</div>` : ""}
+      ${linksHtml(e.links)}
+    </div>
+
+    <div class="eyebrow" style="margin-top:36px">Timeline</div>
+    ${timelineHtml}
+
+    <div class="eyebrow">To-dos</div>
+    ${todos.length ? groupWrap(todos.map(deliverableRow).join("")) : emptyHtml("doc", "No to-dos tracked yet.")}
+  `;
+}
+
 /* ---------- Archive grouping ---------- */
 function archiveSection(label, count, innerRows) {
   return `<details class="archive">
@@ -982,6 +1042,7 @@ function renderEvents() {
   t.value = typeF; s.value = statusF;
   t.onchange = () => { el.dataset.typeFilter = t.value; renderEvents(); };
   s.onchange = () => { el.dataset.statusFilter = s.value; renderEvents(); };
+  bindEventRows(el);
 }
 
 /* ---------- Content view ---------- */
@@ -1126,6 +1187,7 @@ function renderDashboard() {
     ${futureGtm.length ? `<div class="eyebrow">On the horizon</div><div class="board">${futureGtm.map(gtmCard).join("")}</div>` : ""}
   `;
   bindGtmCards(el);
+  bindEventRows(el);
 }
 
 /* ---------- Search ---------- */
@@ -1147,6 +1209,7 @@ function renderSearch(q) {
     ${!total ? emptyHtml("search", "Try a project name, event, city, or status.") : ""}
   `;
   bindGtmCards(el);
+  bindEventRows(el);
 }
 
 /* ---------- Routing ---------- */
@@ -1170,6 +1233,9 @@ function route() {
   if (hash.startsWith("gtm/")) {
     renderGtmDetail(decodeURIComponent(hash.slice(4)));
     show("gtm-detail", "gtm");
+  } else if (hash.startsWith("events/")) {
+    renderEventDetail(decodeURIComponent(hash.slice(7)));
+    show("event-detail", "events");
   } else {
     const view = VIEWS[hash] ? hash : "dashboard";
     VIEWS[view]();

@@ -24,6 +24,11 @@ When the user asks to add/change/remove an event, content piece, or GTM project:
 
 Valid values:
 - Event `type`: `tradeshow`, `webinar`. Event `status`: `idea`, `planning`, `confirmed`, `complete`, `cancelled`.
+  An event can optionally have a `todos` array — deliverable objects
+  `{ title, due, owner, status, links, notes }` with status `planned` | `in-progress`
+  | `complete`, same shape as a GTM deliverable. Any event with todos gets its own
+  page at `#events/<id>` (linked automatically from its row) showing a timeline
+  generated from the due dates. Events with no todos stay as plain list rows.
 - Content `type`: `blog`, `white-paper`, `testimonial`, `buy-side-brief`, `press-release`.
   Content `status`: `idea`, `drafting`, `in-review`, `scheduled`, `published`.
   Content `category`: `product`, `client-success`, `industry` — a separate axis from
