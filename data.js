@@ -85,9 +85,37 @@ window.COMMAND_CENTER_DATA = {
       links: [],
       notes: "",
       todos: [
-        { title: "Choose who is going", due: "2026-09-04", owner: "", status: "planned", links: [], notes: "" },
-        { title: "Deliver creative", due: "2026-09-04", owner: "", status: "planned", links: [], notes: "" }
+        { title: "Choose who is going", due: "", owner: "", status: "planned", links: [], notes: "Behind schedule — still deciding." },
+        { title: "Deliver creative", due: "2026-09-04", owner: "", status: "complete", links: [], notes: "Booth design done." },
+        { title: "Order swag", due: "", owner: "", status: "planned", links: [], notes: "" }
       ]
+    },
+    {
+      id: "evt-flair-labs-webinar",
+      title: "Call AI Webinar (with Flair Labs)",
+      type: "webinar",
+      status: "planning",
+      startDate: "2026-10-06",
+      owner: "",
+      links: [],
+      notes: "Tentative date. Still need a client to join and someone to run it day-of.",
+      todos: [
+        { title: "Promotions", due: "", owner: "Jenn", status: "in-progress", links: [], notes: "" },
+        { title: "Secure a client to join", due: "", owner: "", status: "planned", links: [], notes: "" },
+        { title: "Assign someone to run the webinar day-of", due: "", owner: "", status: "planned", links: [], notes: "" }
+      ]
+    },
+    {
+      id: "evt-lpt-conference",
+      title: "LPT Conference",
+      type: "tradeshow",
+      status: "planning",
+      startDate: "2026-10-06",
+      endDate: "2026-10-08",
+      location: "",
+      owner: "",
+      links: [],
+      notes: "What needs to get done here?"
     }
   ],
 
@@ -159,10 +187,10 @@ window.COMMAND_CENTER_DATA = {
       type: "white-paper",
       category: "industry",
       status: "in-review",
-      dueDate: "2026-09-15",
+      dueDate: "2026-09-18",
       owner: "",
       links: [],
-      notes: "With our vendor for revisions. Q3 white paper."
+      notes: "Edits back from vendor. Team reviewing today. Targeting live end of this week or early next."
     },
     {
       id: "cnt-client-story-molly",
@@ -177,14 +205,14 @@ window.COMMAND_CENTER_DATA = {
     },
     {
       id: "cnt-client-story-susan",
-      title: "Client success story: Susan",
+      title: "Client success story: Susan Patton",
       type: "testimonial",
       category: "client-success",
       status: "drafting",
-      dueDate: "",
+      dueDate: "2026-09-18",
       owner: "",
       links: [],
-      notes: "Recorded — not yet edited."
+      notes: "Being edited. Targeting live end of this week or early next."
     },
     {
       id: "cnt-client-story-patti",
@@ -265,6 +293,17 @@ window.COMMAND_CENTER_DATA = {
         { label: "Draft (Word)", url: "q2_2026_press_release_v2%20copy.docx" }
       ],
       notes: "Q2 2026 Buy-Side Performance Index, with Agent Pronto."
+    },
+    {
+      id: "cnt-nurture-engine-article",
+      title: "AI Nurture Engine launch article",
+      type: "blog",
+      category: "product",
+      status: "in-review",
+      dueDate: "2026-09-17",
+      owner: "Jenn",
+      links: [],
+      notes: "With Product team for edits, due back Thursday. Targeting launch end of September/early October."
     }
   ],
 
@@ -373,7 +412,7 @@ window.COMMAND_CENTER_DATA = {
       links: [
         { label: "Existing help article (Tamara)", url: "https://help.cincpro.com/s/article/CINC-Call-Ai-Through-Flair-Labs" }
       ],
-      notes: "Need to schedule a launch webinar — coordinate with Jeff on timing. Once a date is set, work backward on the article, video, and talking points. Also discussing a possible joint webinar with Agent Accelerator, tentatively October — no date set yet.",
+      notes: "Webinar with Flair Labs tentatively scheduled for Oct 6 — still need a client to join and someone to run it day-of; promotions going out. Once confirmed, work backward on video and talking points (article already live). Also still discussing a possible joint webinar with Agent Accelerator, tentatively October — no date set.",
       plan: {
         milestones: [],
         internal: [],
@@ -425,13 +464,27 @@ window.COMMAND_CENTER_DATA = {
     {
       id: "gtm-ai-nurture-engine",
       title: "AI Nurture Engine",
-      stage: "future",
+      stage: "current",
       description: "",
       launchDate: "",
       links: [],
-      notes: "No go-live date yet.",
-      plan: { milestones: [], internal: [], sales: [], external: [] },
-      checklist: []
+      notes: "Targeting launch end of September/early October.",
+      plan: {
+        milestones: [],
+        internal: [],
+        sales: [],
+        external: [
+          { title: "Launch article", due: "2026-09-17", owner: "Jenn", status: "in-progress", links: [], notes: "With Product team for edits." }
+        ]
+      },
+      checklist: [
+        { item: "Positioning & messaging doc", done: false },
+        { item: "Sales enablement / one-pager", done: false },
+        { item: "Launch email(s)", done: false },
+        { item: "In-app announcement", done: false },
+        { item: "Webinar or demo video", done: false },
+        { item: "Blog / press release", done: false }
+      ]
     },
     {
       id: "gtm-conversationiq",
