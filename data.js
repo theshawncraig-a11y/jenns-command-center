@@ -127,18 +127,6 @@ window.COMMAND_CENTER_DATA = {
   // ---------------------------------------------------------------
   content: [
     {
-      id: "cnt-sample-brief",
-      sample: true,
-      title: "Buy-side industry brief: Q3 market shift",
-      type: "buy-side-brief",
-      category: "industry",
-      status: "drafting",
-      dueDate: "2026-09-12",
-      owner: "Jenn",
-      links: [],
-      notes: "Sample entry — use the links list to point at the Google Doc draft, design files, and the published URL."
-    },
-    {
       id: "cnt-mms-photo-texting-article",
       title: "See What Your Leads See: Photo Texting Now Lives Inside CINC",
       type: "blog",
@@ -187,10 +175,10 @@ window.COMMAND_CENTER_DATA = {
       type: "white-paper",
       category: "industry",
       status: "in-review",
-      dueDate: "2026-09-18",
+      dueDate: "2026-09-25",
       owner: "",
       links: [],
-      notes: "Edits back from vendor. Team reviewing today. Targeting live end of this week or early next."
+      notes: "Edits back from vendor. Team reviewing today. Targeting live next week."
     },
     {
       id: "cnt-client-story-molly",
@@ -209,10 +197,10 @@ window.COMMAND_CENTER_DATA = {
       type: "testimonial",
       category: "client-success",
       status: "drafting",
-      dueDate: "2026-09-18",
+      dueDate: "2026-09-25",
       owner: "",
       links: [],
-      notes: "Being edited. Targeting live end of this week or early next."
+      notes: "Being edited. Targeting live next week."
     },
     {
       id: "cnt-client-story-patti",
