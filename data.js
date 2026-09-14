@@ -129,13 +129,15 @@ window.COMMAND_CENTER_DATA = {
       title: "Never Take Call Notes Again: CINC's Improved Mobile Dialer for Real Estate Agents",
       type: "blog",
       category: "product",
-      status: "in-review",
+      status: "published",
       dueDate: "",
+      publishDate: "2026-09-02",
       owner: "",
       links: [
+        { label: "Read on cincpro.com", url: "https://www.cincpro.com/blog/never-take-call-notes-again-cincs-improved-mobile-dialer-for-real-estate-agents" },
         { label: "Draft (Word)", url: "Product/Mobile%20Dialer%20copy/mobile_dialer_blog.docx" }
       ],
-      notes: "Finalized. Confirm live URL to mark published."
+      notes: "Launch article for Mobile VOIP Dialer."
     },
     {
       id: "cnt-matt-mitchell-referral-engine",
@@ -217,46 +219,52 @@ window.COMMAND_CENTER_DATA = {
       links: [
         { label: "Draft (Word)", url: "Product/Call%20AI/CINC_AI_Phone_Calls_Article%20copy.docx" }
       ],
-      notes: "Finalized. Confirm live URL to mark published."
+      notes: "Finalized. Posting this week."
     },
     {
       id: "cnt-ai-seo-article",
       title: "AI Is Already Recommending Agents. Make Sure It's Recommending You.",
       type: "blog",
       category: "product",
-      status: "in-review",
+      status: "published",
       dueDate: "",
+      publishDate: "2026-08-19",
       owner: "",
       links: [
+        { label: "Read on cincpro.com", url: "https://www.cincpro.com/blog/ai-is-already-recommending-agents.-make-sure-its-recommending-you" },
         { label: "Draft (Word)", url: "Product/AI%20%26%20SEO%20copy/AI_SEO_Settings_Article.docx" }
       ],
-      notes: "Finalized. Confirm live URL to mark published."
+      notes: "Launch article for AI & SEO Metadata Fields."
     },
     {
       id: "cnt-q2-buyside-index-blog",
       title: "The Top Buyer's Agents and Teams in Every State Are Now on the Record",
       type: "blog",
       category: "industry",
-      status: "in-review",
+      status: "published",
       dueDate: "",
+      publishDate: "2026-09-09",
       owner: "",
       links: [
+        { label: "Read on cincpro.com", url: "https://www.cincpro.com/blog/the-top-buyers-agents-and-teams-in-every-state-are-now-on-the-record" },
         { label: "Draft (Word)", url: "cinc_blog_quarterly_index_q2_2026%20copy.docx" }
       ],
-      notes: "Q2 2026 Buy-Side Performance Index, with Agent Pronto. Finalized. Confirm live URL to mark published."
+      notes: "Q2 2026 Buy-Side Performance Index, with Agent Pronto."
     },
     {
       id: "cnt-q2-buyside-index-pr",
       title: "Q2 2026 Buy-Side Index Finds Sharp Price Divergence Across State Markets",
       type: "press-release",
       category: "industry",
-      status: "in-review",
+      status: "published",
       dueDate: "",
+      publishDate: "2026-09-11",
       owner: "",
       links: [
+        { label: "Read on PR Newswire", url: "https://www.prnewswire.com/news-releases/q2-2026-buy-side-index-finds-sharp-price-divergence-across-state-markets-302875944.html" },
         { label: "Draft (Word)", url: "q2_2026_press_release_v2%20copy.docx" }
       ],
-      notes: "Q2 2026 Buy-Side Performance Index, with Agent Pronto. Finalized. Confirm live URL to mark published."
+      notes: "Q2 2026 Buy-Side Performance Index, with Agent Pronto."
     }
   ],
 
@@ -285,7 +293,7 @@ window.COMMAND_CENTER_DATA = {
         ],
         external: [
           { title: "Launch article", due: "2026-09-02", owner: "", status: "complete",
-            links: [{ label: "Draft (Word)", url: "Product/Mobile%20Dialer%20copy/mobile_dialer_blog.docx" }], notes: "Finalized; confirm live URL to mark published." },
+            links: [{ label: "Read on cincpro.com", url: "https://www.cincpro.com/blog/never-take-call-notes-again-cincs-improved-mobile-dialer-for-real-estate-agents" }], notes: "" },
           { title: "Launch video", due: "2026-09-02", owner: "", status: "complete",
             links: [{ label: "Video script (Word)", url: "Product/Mobile%20Dialer%20copy/mobile_dialer_video_script.docx" }], notes: "Final cut delivered — not yet uploaded to a public host." }
         ]
@@ -344,7 +352,7 @@ window.COMMAND_CENTER_DATA = {
         sales: [],
         external: [
           { title: "Launch article", due: "", owner: "", status: "complete",
-            links: [{ label: "Draft (Word)", url: "Product/AI%20%26%20SEO%20copy/AI_SEO_Settings_Article.docx" }], notes: "Finalized; confirm live URL to mark published." }
+            links: [{ label: "Read on cincpro.com", url: "https://www.cincpro.com/blog/ai-is-already-recommending-agents.-make-sure-its-recommending-you" }], notes: "" }
         ]
       },
       checklist: [
@@ -375,7 +383,7 @@ window.COMMAND_CENTER_DATA = {
         ],
         external: [
           { title: "Launch article", due: "", owner: "", status: "complete",
-            links: [{ label: "Draft (Word)", url: "Product/Call%20AI/CINC_AI_Phone_Calls_Article%20copy.docx" }], notes: "Finalized; confirm live URL to mark published." }
+            links: [{ label: "Draft (Word)", url: "Product/Call%20AI/CINC_AI_Phone_Calls_Article%20copy.docx" }], notes: "Finalized. Posting this week." }
         ]
       },
       checklist: [
