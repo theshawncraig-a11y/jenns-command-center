@@ -11,7 +11,7 @@ window.COMMAND_CENTER_DATA = {
   meta: {
     owner: "Jenn",
     team: "CINC Marketing",
-    updated: "2026-08-30"
+    updated: "2026-09-14"
   },
 
   // ---------------------------------------------------------------
@@ -47,13 +47,19 @@ window.COMMAND_CENTER_DATA = {
     },
     {
       id: "evt-sendgrid-deliverability-webinar",
-      title: "Email Deliverability Best Practices (with SendGrid)",
+      title: "Stop Landing in Spam: Email Deliverability Webinar (with Twilio SendGrid)",
       type: "webinar",
       status: "confirmed",
       startDate: "2026-09-22",
       owner: "",
-      links: [],
-      notes: "Standalone webinar, not tied to a product launch. Still need to: schedule a prep call, build the landing page, and prep the promotional emails."
+      links: [
+        { label: "Registration page", url: "https://www.cincpro.com/email-deliverability-for-real-estate-live-webinar" }
+      ],
+      notes: "1-2pm ET. Speaker: Ashley Ortiz, Principal Email Deliverability Consultant, Twilio SendGrid. Landing page is live.",
+      todos: [
+        { title: "Prep call", due: "", owner: "", status: "planned", links: [], notes: "" },
+        { title: "Promotional emails", due: "", owner: "", status: "planned", links: [], notes: "" }
+      ]
     },
     {
       id: "evt-aug-product-webinar",
@@ -120,14 +126,16 @@ window.COMMAND_CENTER_DATA = {
     },
     {
       id: "cnt-voip-dialer-article",
-      title: "Mobile VOIP Dialer launch",
+      title: "Never Take Call Notes Again: CINC's Improved Mobile Dialer for Real Estate Agents",
       type: "blog",
       category: "product",
-      status: "scheduled",
-      dueDate: "2026-09-02",
+      status: "in-review",
+      dueDate: "",
       owner: "",
-      links: [],
-      notes: "Drafted — publishes when the phased rollout begins on 9/2."
+      links: [
+        { label: "Draft (Word)", url: "Product/Mobile%20Dialer%20copy/mobile_dialer_blog.docx" }
+      ],
+      notes: "Finalized. Confirm live URL to mark published."
     },
     {
       id: "cnt-matt-mitchell-referral-engine",
@@ -197,6 +205,58 @@ window.COMMAND_CENTER_DATA = {
       owner: "",
       links: [],
       notes: "Recorded — not yet edited."
+    },
+    {
+      id: "cnt-call-ai-article",
+      title: "AI Phone Calls in Real Estate: How CINC's Partnership with Flair Labs Is Changing Lead Follow-Up",
+      type: "blog",
+      category: "product",
+      status: "in-review",
+      dueDate: "",
+      owner: "",
+      links: [
+        { label: "Draft (Word)", url: "Product/Call%20AI/CINC_AI_Phone_Calls_Article%20copy.docx" }
+      ],
+      notes: "Finalized. Confirm live URL to mark published."
+    },
+    {
+      id: "cnt-ai-seo-article",
+      title: "AI Is Already Recommending Agents. Make Sure It's Recommending You.",
+      type: "blog",
+      category: "product",
+      status: "in-review",
+      dueDate: "",
+      owner: "",
+      links: [
+        { label: "Draft (Word)", url: "Product/AI%20%26%20SEO%20copy/AI_SEO_Settings_Article.docx" }
+      ],
+      notes: "Finalized. Confirm live URL to mark published."
+    },
+    {
+      id: "cnt-q2-buyside-index-blog",
+      title: "The Top Buyer's Agents and Teams in Every State Are Now on the Record",
+      type: "blog",
+      category: "industry",
+      status: "in-review",
+      dueDate: "",
+      owner: "",
+      links: [
+        { label: "Draft (Word)", url: "cinc_blog_quarterly_index_q2_2026%20copy.docx" }
+      ],
+      notes: "Q2 2026 Buy-Side Performance Index, with Agent Pronto. Finalized. Confirm live URL to mark published."
+    },
+    {
+      id: "cnt-q2-buyside-index-pr",
+      title: "Q2 2026 Buy-Side Index Finds Sharp Price Divergence Across State Markets",
+      type: "press-release",
+      category: "industry",
+      status: "in-review",
+      dueDate: "",
+      owner: "",
+      links: [
+        { label: "Draft (Word)", url: "q2_2026_press_release_v2%20copy.docx" }
+      ],
+      notes: "Q2 2026 Buy-Side Performance Index, with Agent Pronto. Finalized. Confirm live URL to mark published."
     }
   ],
 
@@ -220,20 +280,23 @@ window.COMMAND_CENTER_DATA = {
         ],
         internal: [],
         sales: [
-          { title: "Talking points", due: "2026-09-02", owner: "", status: "planned", links: [], notes: "" }
+          { title: "Talking points", due: "2026-09-02", owner: "", status: "complete",
+            links: [{ label: "Talking points (PDF)", url: "Product/Mobile%20Dialer%20copy/CA_mobile%20dialer_talking_points%20.pdf" }], notes: "" }
         ],
         external: [
-          { title: "Launch article", due: "2026-09-02", owner: "", status: "complete", links: [], notes: "Drafted; publishes with the rollout on 9/2." },
-          { title: "Launch video", due: "2026-09-02", owner: "", status: "in-progress", links: [], notes: "" }
+          { title: "Launch article", due: "2026-09-02", owner: "", status: "complete",
+            links: [{ label: "Draft (Word)", url: "Product/Mobile%20Dialer%20copy/mobile_dialer_blog.docx" }], notes: "Finalized; confirm live URL to mark published." },
+          { title: "Launch video", due: "2026-09-02", owner: "", status: "complete",
+            links: [{ label: "Video script (Word)", url: "Product/Mobile%20Dialer%20copy/mobile_dialer_video_script.docx" }], notes: "Final cut delivered — not yet uploaded to a public host." }
         ]
       },
       checklist: [
         { item: "Positioning & messaging doc", done: false },
-        { item: "Sales enablement / one-pager", done: false },
+        { item: "Sales enablement / one-pager", done: true },
         { item: "Launch email(s)", done: false },
         { item: "In-app announcement", done: false },
-        { item: "Webinar or demo video", done: false },
-        { item: "Blog / press release", done: false }
+        { item: "Webinar or demo video", done: true },
+        { item: "Blog / press release", done: true }
       ]
     },
     {
@@ -268,38 +331,60 @@ window.COMMAND_CENTER_DATA = {
       id: "gtm-ai-seo-metadata",
       title: "AI & SEO Metadata Fields",
       stage: "current",
-      description: "",
+      description: "New AI & SEO Settings section (Settings > General) that lets clients feed AI platforms and search engines structured information about their business via an llms.txt file and JSON-LD structured data.",
       launchDate: "",
       links: [],
-      notes: "",
-      plan: { milestones: [], internal: [], sales: [], external: [] },
+      notes: "Feature is already live for all clients — empty until the client fills it in.",
+      plan: {
+        milestones: [],
+        internal: [
+          { title: "Client advisor talking points", due: "", owner: "", status: "complete",
+            links: [{ label: "Talking points (Word)", url: "Product/AI%20%26%20SEO%20copy/AI_SEO_Settings_Client_Advisor_Talking_Points.docx" }], notes: "" }
+        ],
+        sales: [],
+        external: [
+          { title: "Launch article", due: "", owner: "", status: "complete",
+            links: [{ label: "Draft (Word)", url: "Product/AI%20%26%20SEO%20copy/AI_SEO_Settings_Article.docx" }], notes: "Finalized; confirm live URL to mark published." }
+        ]
+      },
       checklist: [
-        { item: "Positioning & messaging doc", done: false },
+        { item: "Positioning & messaging doc", done: true },
         { item: "Sales enablement / one-pager", done: false },
         { item: "Launch email(s)", done: false },
         { item: "In-app announcement", done: false },
         { item: "Webinar or demo video", done: false },
-        { item: "Blog / press release", done: false }
+        { item: "Blog / press release", done: true }
       ]
     },
     {
       id: "gtm-call-ai",
       title: "Call AI",
       stage: "current",
-      description: "",
+      description: "AI voice calling built with Flair Labs — automatically calls new and high-intent leads, holds a qualifying conversation, and live-transfers interested ones to an agent.",
       launchDate: "",
       links: [
         { label: "Existing help article (Tamara)", url: "https://help.cincpro.com/s/article/CINC-Call-Ai-Through-Flair-Labs" }
       ],
       notes: "Need to schedule a launch webinar — coordinate with Jeff on timing. Once a date is set, work backward on the article, video, and talking points. Also discussing a possible joint webinar with Agent Accelerator, tentatively October — no date set yet.",
-      plan: { milestones: [], internal: [], sales: [], external: [] },
+      plan: {
+        milestones: [],
+        internal: [],
+        sales: [
+          { title: "Sales one-pager", due: "", owner: "", status: "complete",
+            links: [{ label: "One-pager (Word)", url: "Product/Call%20AI/CINC_Call_AI_One_Pager%20copy.docx" }], notes: "" }
+        ],
+        external: [
+          { title: "Launch article", due: "", owner: "", status: "complete",
+            links: [{ label: "Draft (Word)", url: "Product/Call%20AI/CINC_AI_Phone_Calls_Article%20copy.docx" }], notes: "Finalized; confirm live URL to mark published." }
+        ]
+      },
       checklist: [
         { item: "Positioning & messaging doc", done: false },
-        { item: "Sales enablement / one-pager", done: false },
+        { item: "Sales enablement / one-pager", done: true },
         { item: "Launch email(s)", done: false },
         { item: "In-app announcement", done: false },
         { item: "Webinar or demo video", done: false },
-        { item: "Blog / press release", done: false }
+        { item: "Blog / press release", done: true }
       ]
     },
     {
