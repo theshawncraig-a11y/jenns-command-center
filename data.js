@@ -35,17 +35,6 @@ window.COMMAND_CENTER_DATA = {
       notes: "Sample entry — replace with the real event details (booth #, sponsorship level, shipping deadlines, staffing)."
     },
     {
-      id: "evt-sample-webinar",
-      sample: true,
-      title: "Call AI launch webinar",
-      type: "webinar",
-      status: "idea",
-      startDate: "2026-09-18",
-      owner: "Jenn",
-      links: [],
-      notes: "Sample entry — pair webinars with GTM launches so promotion, registration page, and follow-up emails get planned together."
-    },
-    {
       id: "evt-sendgrid-deliverability-webinar",
       title: "Stop Landing in Spam: Email Deliverability Webinar (with Twilio SendGrid)",
       type: "webinar",
