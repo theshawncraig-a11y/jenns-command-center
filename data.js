@@ -122,7 +122,11 @@ window.COMMAND_CENTER_DATA = {
       location: "",
       owner: "",
       links: [],
-      notes: "What needs to get done here?"
+      notes: "",
+      todos: [
+        { title: "Deliver 1,200 print-outs", due: "2026-10-02", owner: "", status: "planned", links: [], notes: "Needs to happen ASAP." },
+        { title: "Decide: order a 10x20 booth?", due: "", owner: "", status: "planned", links: [], notes: "" }
+      ]
     }
   ],
 
