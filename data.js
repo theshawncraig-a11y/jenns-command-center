@@ -11,7 +11,7 @@ window.COMMAND_CENTER_DATA = {
   meta: {
     owner: "Jenn",
     team: "CINC Marketing",
-    updated: "2026-09-14"
+    updated: "2026-09-21"
   },
 
   // ---------------------------------------------------------------
@@ -76,7 +76,24 @@ window.COMMAND_CENTER_DATA = {
       todos: [
         { title: "Choose who is going", due: "", owner: "", status: "planned", links: [], notes: "Behind schedule — still deciding." },
         { title: "Deliver creative", due: "2026-09-04", owner: "", status: "complete", links: [], notes: "Booth design done." },
-        { title: "Order swag", due: "", owner: "", status: "planned", links: [], notes: "" }
+        { title: "Order swag", due: "", owner: "", status: "in-progress", links: [], notes: "Swag and apparel coming." },
+        { title: "FedEx login/password for shipping (from Jenn)", due: "", owner: "Jenn", status: "planned", links: [], notes: "" }
+      ]
+    },
+    {
+      id: "evt-ascend-lakeland",
+      title: "Ascend (Lakeland)",
+      type: "tradeshow",
+      status: "planning",
+      startDate: "",
+      endDate: "",
+      location: "Lakeland, FL",
+      owner: "",
+      links: [],
+      notes: "",
+      todos: [
+        { title: "Swag / apparel", due: "", owner: "", status: "in-progress", links: [], notes: "Coming." },
+        { title: "FedEx login/password for shipping (from Jenn)", due: "", owner: "Jenn", status: "planned", links: [], notes: "" }
       ]
     },
     {
@@ -87,8 +104,9 @@ window.COMMAND_CENTER_DATA = {
       startDate: "2026-10-06",
       owner: "",
       links: [],
-      notes: "Tentative date. Still need a client to join and someone to run it day-of.",
+      notes: "Tentative date. Still need a client to join and someone to run it day-of. Jenn is prepping as much as possible before she's out starting Friday (9/25).",
       todos: [
+        { title: "Prep call", due: "2026-09-25", owner: "Jenn", status: "planned", links: [], notes: "" },
         { title: "Promotions", due: "", owner: "Jenn", status: "in-progress", links: [], notes: "" },
         { title: "Secure a client to join", due: "", owner: "", status: "planned", links: [], notes: "" },
         { title: "Assign someone to run the webinar day-of", due: "", owner: "", status: "planned", links: [], notes: "" }
@@ -163,11 +181,22 @@ window.COMMAND_CENTER_DATA = {
       title: "Best real estate lead generation companies in 2026: A complete guide",
       type: "white-paper",
       category: "industry",
-      status: "in-review",
-      dueDate: "2026-09-25",
+      status: "scheduled",
+      dueDate: "2026-10-05",
       owner: "",
       links: [],
-      notes: "Edits back from vendor. Team reviewing today. Targeting live next week."
+      notes: "Blog will be loaded and prospect email ready to go out the week after next."
+    },
+    {
+      id: "cnt-lead-gen-companies-blog",
+      title: "Best real estate lead generation companies in 2026 — blog (white paper download)",
+      type: "blog",
+      category: "industry",
+      status: "scheduled",
+      dueDate: "2026-10-05",
+      owner: "",
+      links: [],
+      notes: "Promotes the white paper as a gated download. Blog will be loaded and prospect email ready to go out the week after next."
     },
     {
       id: "cnt-client-story-molly",
@@ -185,11 +214,11 @@ window.COMMAND_CENTER_DATA = {
       title: "Client success story: Susan Patton",
       type: "testimonial",
       category: "client-success",
-      status: "drafting",
-      dueDate: "2026-09-25",
+      status: "scheduled",
+      dueDate: "2026-09-28",
       owner: "",
       links: [],
-      notes: "Being edited. Targeting live next week."
+      notes: "Blog will be loaded and prospect email ready to go out next week."
     },
     {
       id: "cnt-client-story-patti",
@@ -218,13 +247,15 @@ window.COMMAND_CENTER_DATA = {
       title: "AI Phone Calls in Real Estate: How CINC's Partnership with Flair Labs Is Changing Lead Follow-Up",
       type: "blog",
       category: "product",
-      status: "in-review",
+      status: "published",
       dueDate: "",
+      publishDate: "2026-09-15",
       owner: "",
       links: [
+        { label: "Read on cincpro.com", url: "https://www.cincpro.com/blog/ai-phone-calls-in-real-estate" },
         { label: "Draft (Word)", url: "Product/Call%20AI/CINC_AI_Phone_Calls_Article%20copy.docx" }
       ],
-      notes: "Finalized. Posting this week."
+      notes: "Launch article for Call AI."
     },
     {
       id: "cnt-ai-seo-article",
@@ -277,10 +308,32 @@ window.COMMAND_CENTER_DATA = {
       type: "blog",
       category: "product",
       status: "in-review",
-      dueDate: "2026-09-17",
+      dueDate: "",
       owner: "Jenn",
       links: [],
-      notes: "With Product team for edits, due back Thursday. Targeting launch end of September/early October."
+      notes: "Draft done and delivered. Targeting launch end of September/early October."
+    },
+    {
+      id: "cnt-google-market-report",
+      title: "Google Market Report",
+      type: "white-paper",
+      category: "industry",
+      status: "idea",
+      dueDate: "2026-09-25",
+      owner: "Jenn",
+      links: [],
+      notes: "Expecting data from Dan this week."
+    },
+    {
+      id: "cnt-lvi-report-q2",
+      title: "LVI Report (Q2)",
+      type: "white-paper",
+      category: "industry",
+      status: "idea",
+      dueDate: "2026-09-25",
+      owner: "Jenn",
+      links: [],
+      notes: "Expecting data from Dan this week."
     }
   ],
 
@@ -399,7 +452,7 @@ window.COMMAND_CENTER_DATA = {
         ],
         external: [
           { title: "Launch article", due: "", owner: "", status: "complete",
-            links: [{ label: "Draft (Word)", url: "Product/Call%20AI/CINC_AI_Phone_Calls_Article%20copy.docx" }], notes: "Finalized. Posting this week." }
+            links: [{ label: "Read on cincpro.com", url: "https://www.cincpro.com/blog/ai-phone-calls-in-real-estate" }], notes: "" }
         ]
       },
       checklist: [
@@ -451,7 +504,7 @@ window.COMMAND_CENTER_DATA = {
         internal: [],
         sales: [],
         external: [
-          { title: "Launch article", due: "2026-09-17", owner: "Jenn", status: "in-progress", links: [], notes: "With Product team for edits." }
+          { title: "Launch article", due: "2026-09-17", owner: "Jenn", status: "complete", links: [], notes: "" }
         ]
       },
       checklist: [
@@ -460,7 +513,7 @@ window.COMMAND_CENTER_DATA = {
         { item: "Launch email(s)", done: false },
         { item: "In-app announcement", done: false },
         { item: "Webinar or demo video", done: false },
-        { item: "Blog / press release", done: false }
+        { item: "Blog / press release", done: true }
       ]
     },
     {
